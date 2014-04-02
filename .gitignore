@@ -1,0 +1,11 @@
+# General
+.DS_Store
+
+# IDEA
+*.iml
+*.ipr
+*.iws
+
+# Build
+.gradle
+build
