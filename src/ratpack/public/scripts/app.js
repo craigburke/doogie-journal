@@ -11,23 +11,23 @@ var app = angular.module('doogie', [
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
-            controller: 'DoogieController',
-            templateUrl: '/partials/journal.html',
+            controller: 'JournalController',
+            templateUrl: '/templates/journal.html',
             resolve: {
                 journal: function(JournalService) { return JournalService.getDefault(); }
             }
         })
         .when('/show', {
-            controller: 'ShowAnimation',
-            templateUrl: '/partials/show.html',
+            controller: 'AnimationController',
+            templateUrl: '/templates/show.html',
             resolve: {
                 journal: function(JournalService) { return JournalService.get(); },
                 typingEnabled: function() { return true; }
             }
         })
         .when('/show/:id', {
-            controller: 'ShowAnimation',
-            templateUrl: '/partials/show.html',
+            controller: 'AnimationController',
+            templateUrl: '/templates/show.html',
             resolve: {
                 journal: function($route, JournalService) {
                     var id = $route.current.params.id;

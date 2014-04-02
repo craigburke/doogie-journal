@@ -1,0 +1,12 @@
+{
+  "name": "doogie",
+  "version": "1.0.0",
+  "description": "Doogie Howser Journal Generator",
+  "dependencies": {
+    "karma": "~0.12.3",
+    "karma-chrome-launcher": "~0.1.3",
+    "karma-jasmine": "~0.1.5"
+  },
+  "devDependencies": {},
+  "author": "Craig Burke",
+}

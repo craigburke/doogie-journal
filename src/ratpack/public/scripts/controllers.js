@@ -18,12 +18,12 @@ var doogieApp = {
 };
 
 
-controllers.controller('DoogieController', function($scope, JournalService, journal) {
+controllers.controller('JournalController', function($scope, JournalService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
 });
 
-controllers.controller('ShowAnimation', function($scope, $interval, JournalService, journal, typingEnabled) {
+controllers.controller('AnimationController', function($scope, $interval, JournalService, journal, typingEnabled) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
 
