@@ -1,0 +1,28 @@
+<div id="overlay" ng-keydown="hotkeys($event)" ng-keypress="typing($event)" tabindex="0"></div>
+
+<div id="canvas"></div>
+
+<div id="paused" ng-show="showPaused()">
+    Paused, asshole!
+</div>
+
+<div id="done" ng-show="showDone()">
+    Done, asshole!
+</div>
+
+<div id="link" ng-show="showLink()">
+    Your journal has been saved. Share it!<br />
+    <a href="#/show/{{journalId}}">http://doogie.seriousbusiness.io/#/show/{{journalId}}</a>
+</div>
+
+<audio id="loopAudio" loop="true" >
+    <source src="../audio/doogie-loop.mp3" type="audio/mp3">
+    <source src="../audio/doogie-loop.ogg" type="audio/ogg">
+    <source src="../audio/doogie-loop.wav" type="audio/wav">
+</audio>
+
+<audio id="endAudio" >
+    <source src="../audio/doogie-end.mp3" type="audio/mp3">
+    <source src="../audio/doogie-end.ogg" type="audio/ogg">
+    <source src="../audio/doogie-end.wav" type="audio/wav">
+</audio>

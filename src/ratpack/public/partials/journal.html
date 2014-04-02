@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>Doogie Howser Journal Generator</h1>
+
+    <form>
+        <fieldset>
+            <legend>Journal Entry</legend>
+            <div>
+                <label>Title</label>
+                <input type="text" ng-model="journal.title" size="50" required ng-maxlength="50" />
+            </div>
+
+            <div>
+                <label>Date</label>
+                <datepicker ng-model='journal.date' disable-timepicker='true' required></datepicker>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>End Credits</legend>
+
+            <div>
+
+                <label>Title</label>
+                <input type="text"  ng-model="journal.credits.title" required ng-maxlength="64" size="50" />
+            </div>
+
+            <div>
+                <label>Person</label>
+                <input type="text" ng-model="journal.credits.person" required ng-maxlength="64" size="50" />
+            </div>
+
+        </fieldset>
+
+        <div class="form-actions">
+            <a href="#/show" ng-click="save()">Enter &#8626;</a>
+        </div>
+
+    </form>
+</div>

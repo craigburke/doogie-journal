@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'DOS';
+    src: url('../fonts/dos.ttf');
+}
+
+@font-face {
+    font-family: 'TSISQUILISDA';
+    src: url('../fonts/TSISQUILISDA.ttf');
+}
+
+html, body {
+    width:  100%;
+    height: 100%;
+    margin: 0px;
+    color: #FFF;
+    background: rgb(124,124,170); /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(124,124,170,1) 0%, rgba(67,67,173,1) 25%, rgba(32,32,82,1) 91%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(124,124,170,1)), color-stop(25%,rgba(67,67,173,1)), color-stop(91%,rgba(32,32,82,1))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(124,124,170,1) 0%,rgba(67,67,173,1) 25%,rgba(32,32,82,1) 91%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(124,124,170,1) 0%,rgba(67,67,173,1) 25%,rgba(32,32,82,1) 91%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(124,124,170,1) 0%,rgba(67,67,173,1) 25%,rgba(32,32,82,1) 91%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(124,124,170,1) 0%,rgba(67,67,173,1) 25%,rgba(32,32,82,1) 91%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7c7caa', endColorstr='#202052',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+h1 {
+    text-align: center;
+    font-family: TSISQUILISDA;
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 3.5em;
+    padding: .2em;
+    text-shadow: 5px 5px 1px #000;
+    filter: dropshadow(color=#000, offx=2, offy=2);
+}
+
+#wrapper {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#overlay {
+    opacity: 0;
+    z-index: 9999;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    outline: none;
+}
+
+legend {
+    color: #000;
+}
+
+label {
+    font-family: DOS;
+    color: #000;
+    text-transform: uppercase;
+}
+
+form {
+    margin: auto;
+    width: 88%;
+    background: #f0f0e4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px 5px #bdbcbe, 0 0 4px 4px rgba(0, 0, 0, .2);
+}
+
+input {
+    padding: 6px 12px;
+}
+
+.submit {
+    margin-top: 25px;
+
+    text-align: center;
+    color: #000;
+    padding: 6px 20%;
+    font-size: 1.2em;
+    border-radius: 4px;
+
+    box-shadow: inset 0 0 10px #e8e8e8, 0 1px 0 #c3c3c3;
+    text-shadow: 0px 1px 0px #FFF;
+
+    text-align: center;
+
+}
+
+#paused,
+#link {
+    color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: #FFF;
+    z-index: 99999;
+}
