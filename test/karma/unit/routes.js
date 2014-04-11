@@ -11,34 +11,30 @@ describe('Routes test', function() {
     }
   ));
 
-  describe('journal route', function() {
     beforeEach(inject(
-      function($httpBackend) {
-        $httpBackend.expectGET('/templates/journal.html')
-          .respond(200, 'Journal HTML');
-      }
+        function($httpBackend) {
+            $httpBackend.whenGET('/templates/journal.html')
+                .respond(200, 'Journal HTML');
+            $httpBackend.whenGET('/templates/show.html')
+                .respond(200, 'Show Journal');
+        }
     ));
 
-    it('should load the journal page on successful load of /', function() {
-      location.path('/');
-      rootScope.$digest(); // call the digest loop
-      expect(route.current.controller).toBe('JournalController');
-    });
+    describe('journal route', function() {
+
+        it('should load the journal page on successful load of /', function() {
+            location.path('/');
+            rootScope.$digest();
+            expect(route.current.controller).toBe('JournalController');
+        });
 
   });
   
   describe('show journal routes', function() {
-	  
-    beforeEach(inject(
-      function($httpBackend) {
-        $httpBackend.expectGET('/templates/show.html')
-          .respond(200, 'Show Journal HTML');
-      }
-    ));
 
     it('should load the animation page on successful load of /show', function() {
       location.path('/show/');
-      rootScope.$digest(); // call the digest loop
+      rootScope.$digest();
       expect(route.current.controller).toBe('AnimationController');
     });
 	

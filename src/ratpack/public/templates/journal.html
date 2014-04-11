@@ -1,17 +1,22 @@
 <div class="container">
     <h1>Doogie Howser Journal Generator</h1>
 
-    <form>
+    <form class="form-horizontal" name="journalForm">
         <fieldset>
             <legend>Journal Entry</legend>
-            <div>
-                <label>Title</label>
-                <input type="text" ng-model="journal.title" size="50" required ng-maxlength="50" />
+
+            <div class="form-group" ng-class="{'has-error': journalForm.title.$invalid}">
+                <label class="control-label col-sm-2">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" ng-model="journal.title" size="50" required ng-maxlength="50" />
+                </div>
             </div>
 
-            <div>
-                <label>Date</label>
-                <datepicker ng-model='journal.date' disable-timepicker='true' required></datepicker>
+            <div class="form-group" ng-class="{'has-error': journalForm.date.$invalid}">
+                <label class="control-label col-sm-2"><i class="fa fa-calendar"></i> Date</label>
+                <div class="col-sm-2">
+                    <input ng-model='journal.date' class="form-control" data-animation="am-fade-and-scale" data-autoclose="true" name="date" disable-timepicker='true' bs-datepicker required />
+                </div>
             </div>
 
         </fieldset>
@@ -19,21 +24,24 @@
         <fieldset>
             <legend>End Credits</legend>
 
-            <div>
-
-                <label>Title</label>
-                <input type="text"  ng-model="journal.credits.title" required ng-maxlength="64" size="50" />
+            <div class="form-group" ng-class="{'has-error': journalForm.creditsTitle.$invalid}">\
+                <label class="control-label col-sm-2">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="creditsTitle"  ng-model="journal.credits.title" required ng-maxlength="64" size="50" />
+                </div>
             </div>
 
-            <div>
-                <label>Person</label>
-                <input type="text" ng-model="journal.credits.person" required ng-maxlength="64" size="50" />
+            <div class="form-group" ng-class="{'has-error': journalForm.creditsPerson.$invalid}">
+                <label class="control-label col-sm-2">Person</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="creditsPerson" ng-model="journal.credits.person" required ng-maxlength="64" size="50" />
+                </div>
             </div>
 
         </fieldset>
 
-        <div class="form-actions">
-            <a href="#/show" ng-click="save()">Enter &#8626;</a>
+        <div>
+            <a href="#/show" id="enter" class="btn btn-default btn-lg" ng-click="save()">Enter &#8626;</a>
         </div>
 
     </form>

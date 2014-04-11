@@ -14,19 +14,10 @@ var journalAnimation = function(args) {
     var loopAudio = document.getElementById(args.loopAudioId || "loopAudio");
     var endAudio =  document.getElementById(args.endAudioId || "endAudio");
 
-    var state = {
-        current: JOURNAL_STATE.INIT,
-        previous: null
-    };
-
     var CONST = {
         DRAW_WIDTH : 600,
-        TYPE_FRAME_INTERVAL : 250, // How many milliseconds between typing each letter
         PAN_DURATION : 2,
         LINE_HEIGHT : 20,
-        LINE_CHARACTER_MAX : 55,
-        PAN_INTERVAL : 15, // number of characters typed before panning
-        PAN_WIDTH : 150,
         TOP_OFFSET : 45,
         LEFT_OFFSET : 50,
 
@@ -35,6 +26,7 @@ var journalAnimation = function(args) {
             FONT_SIZE : 15
         },
         CREDITS: {
+            TRANSITION_TIME: 2000,
             FONT_FAMILY : "TSISQUILISDA",
             TITLE_FONT_SIZE : 25,
             PERSON_FONT_SIZE: 50
@@ -50,6 +42,21 @@ var journalAnimation = function(args) {
 
     };
 
+    var state = {
+        current: JOURNAL_STATE.INIT,
+        previous: null
+    };
+
+    var typing = journalTyping({
+        journal: journal,
+        lineCharacterMax: 55,
+        panInterval: 15,
+        panWidth: 150,
+        typeFrameInterval: 250,
+        lineHeight: CONST.LINE_HEIGHT,
+        drawWidth: CONST.DRAW_WIDTH
+    });
+
     var canvas = {
         stage: null,
         backgroundLayer: new Kinetic.Layer(),
@@ -60,118 +67,15 @@ var journalAnimation = function(args) {
         creditsTextLayer: new Kinetic.Layer({ opacity: 0 })
     };
 
-    var typing = (function() {
-        var text = [];
-        var currentLine = 0;
-        var positionOnLine = 0;
-        var characterStartTime = 0;
-        var position = {x: 0, y: 0};
-        var parsingText = false;
+    var typingAnimation;
 
-        var updatePosition = function() {
-            if (currentLine >= text.length) {
-                currentLine = text.length - 1;
-                positionOnLine = text[text.length - 1].length - 1;
-            }
-
-            if (positionOnLine >= text[currentLine].length) {
-                positionOnLine = text[currentLine].length - 1;
-            }
-        };
-
-
-        return {
-            typingEnabled: false,
-            updateJournal: function(journal) {
-                // Break up text into lines based on LINE_CHARACTER_MAX ensuring that words don't get cropped
-                parsingText = true;
-                text = [];
-
-                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                var date = new Date(journal.date);
-                var formattedDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-
-                var journalText = formattedDate.toUpperCase() + "... " + journal.text;
-
-                var position = 0;
-                while (position < journalText.length) {
-                    var lineText = journalText.substring(position, position + CONST.LINE_CHARACTER_MAX);
-                    var nextCharacter = journalText.substring(position + lineText.length, position + lineText.length + 1);
-                    var lastSpace = lineText.lastIndexOf(' ');
-
-                    if (lineText.length === CONST.LINE_CHARACTER_MAX && nextCharacter !== " " && lastSpace !== -1) {
-                        // Breaking up a word, so let's go back
-                        lineText = journalText.substring(position, position + lastSpace);
-                    }
-
-                    position += lineText.length;
-                    text.push(lineText.trim());
-                }
-
-                updatePosition();
-                parsingText = false;
-            },
-            getCurrentTextLines: function() {
-                var value = [];
-                var lineText = "";
-
-                for (var i = 0; i <= currentLine; i++) {
-                    lineText = text[i];
-
-                    if (i === currentLine) {
-                        lineText = text[currentLine].substring(0, positionOnLine + 1);
-                    }
-
-                    value.push(lineText);
-                }
-
-                return value;
-            },
-            setPosition: function(x, y) {
-               position.x = x;
-               position.y = y;
-            },
-            getPosition: function() {
-                return {x: position.x, y: position.y};
-            },
-            getLastCharacterPosition: function(stageWidth) {
-                var panCount = Math.floor(positionOnLine / CONST.PAN_INTERVAL);
-
-                var x = panCount * (CONST.PAN_WIDTH / CONST.DRAW_WIDTH * stageWidth) * -1;
-                var y = currentLine * CONST.LINE_HEIGHT * -1;
-
-                return {x: x, y: y};
-            },
-            onLastCharacter: function() {
-                return (currentLine === text.length - 1 && positionOnLine === text[currentLine].length - 1);
-            },
-            isReady: function() {
-                return !parsingText;
-            },
-            nextCharacter: function(time) {
-                if (this.onLastCharacter()) {
-                    return;
-                }
-                var currentCharacterTime = Math.floor(time - characterStartTime);
-
-                if  (currentCharacterTime >= CONST.TYPE_FRAME_INTERVAL) {
-                    positionOnLine++;
-                    characterStartTime = time;
-                }
-
-                if (text[currentLine].length <= positionOnLine) {
-                    positionOnLine = 0;
-                    currentLine++;
-                }
-            }
-        }
-
-    }());
 
     function animateJournal() {
-        var typingAnimation = new Kinetic.Animation(function(frame) {
+        typingAnimation = new Kinetic.Animation(function(frame) {
+
             if (typing.onLastCharacter() && !typing.typingEnabled) {
-                loopAudio.loop = false;
+                typingAnimation.stop();
+                transitionToCredits();
             }
             else {
                 if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.onLastCharacter()) {
@@ -179,18 +83,30 @@ var journalAnimation = function(args) {
                     typing.nextCharacter(frame.time);
                 }
             }
-
-            if (loopAudio.ended) {
-                typingAnimation.stop();
-                setState(JOURNAL_STATE.CREDITS);
-                renderCredits();
-            }
-
-
         }, canvas.journalTextLayer);
 
         typingAnimation.start();
     }
+
+    function transitionToCredits() {
+        var volumeDelta = .1;
+        var intervalTime = Math.floor(CONST.CREDITS.TRANSITION_TIME / (volumeDelta * 100));
+
+        var loopAudioFadeOut = setInterval(function() {
+            if (loopAudio.volume > 0) {
+                var volume = loopAudio.volume - volumeDelta;
+                loopAudio.volume = volume.toPrecision(2);
+            }
+            else {
+                clearInterval(loopAudioFadeOut);
+                loopAudio.pause();
+                setState(JOURNAL_STATE.CREDITS);
+                renderCredits();
+            }
+        }, intervalTime);
+
+    }
+
 
     function setState(value) {
         if (state.current !== value) {
@@ -452,8 +368,6 @@ var journalAnimation = function(args) {
             renderBackground();
             renderHeader(journal.title);
 
-            typing.updateJournal(journal);
-
             canvas.journalTextLayer = new Kinetic.Layer({
                 width: canvas.stage.getWidth(),
                 height: canvas.stage.getHeight()
@@ -470,12 +384,20 @@ var journalAnimation = function(args) {
 
             typing.typingEnabled = false;
         },
+        stop: function() {
+            typingAnimation.stop();
+            loopAudio.pause();
+            endAudio.pause();
+        },
         updateJournalText: function(text) {
             if (typing.typingEnabled) {
                 journal.text = text;
-                typing.updateJournal(journal);
+                typing.parseJournalText();
                 renderText();
             }
+        },
+        getJournalText: function() {
+            return journal.text;
         },
         togglePause: function() {
             if (state.current === JOURNAL_STATE.PAUSED) {

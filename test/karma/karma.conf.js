@@ -15,14 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/ratpack/public/vendor/angularjs/angular.min.js',
-      'src/ratpack/public/vendor/angularjs/angular-route.min.js',
-      'src/ratpack/public/vendor/ng-quick-date/ng-quick-date.min.js',
-      'src/ratpack/public/vendor/*.js',
+        'src/ratpack/public/vendor/angularjs/angular.min.js',
+        'src/ratpack/public/vendor/angularjs/angular-route.min.js',
+        'src/ratpack/public/vendor/angularjs/angular-animate.min.js',
+        'src/ratpack/public/vendor/angular-strap/*.js',
+        'src/ratpack/public/vendor/*.js',
 
-      'src/ratpack/public/scripts/*.js',
-      'test/karma/lib/angular-mocks.js',
-      'test/karma/unit/*.js'
+        'src/ratpack/public/scripts/*.js',
+        'test/karma/lib/angular-mocks.js',
+        'test/karma/lib/jquery-2.1.0.min.js',
+        'test/karma/unit/*.js'
     ],
 
 

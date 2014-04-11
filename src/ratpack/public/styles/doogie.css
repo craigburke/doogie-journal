@@ -8,6 +8,12 @@
     src: url('../fonts/TSISQUILISDA.ttf');
 }
 
+.datepicker.dropdown-menu{width:250px;height:270px}
+.datepicker.dropdown-menu button{outline:0;border:0}
+.datepicker.dropdown-menu tbody{height:180px}
+.datepicker.dropdown-menu tbody button{padding:6px}
+
+
 html, body {
     width:  100%;
     height: 100%;
@@ -55,9 +61,7 @@ legend {
 }
 
 label {
-    font-family: DOS;
     color: #000;
-    text-transform: uppercase;
 }
 
 form {
@@ -87,6 +91,17 @@ input {
 
     text-align: center;
 
+}
+
+#enter {
+
+    margin-top: 30px;
+    width: 50%;
+    float: right;
+}
+
+#enter:after {
+    clear: both;
 }
 
 #paused,

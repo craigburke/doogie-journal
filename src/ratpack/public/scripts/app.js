@@ -2,7 +2,7 @@
 
 var app = angular.module('doogie', [
     'ngRoute',
-    'ngQuickDate',
+    'mgcrea.ngStrap',
     'doogie.controllers',
     'doogie.services'
 ]);
