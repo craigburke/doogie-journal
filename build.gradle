@@ -22,7 +22,9 @@ dependencies {
 	compile "org.mongodb:mongo-java-driver:2.11.4"
 	compile "org.mongodb.morphia:morphia:0.107"
 	springloaded "org.springsource.springloaded:springloaded-core:1.1.4"
+	testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
 }
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.11'
