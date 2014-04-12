@@ -3,6 +3,7 @@
 var app = angular.module('doogie', [
     'ngRoute',
     'mgcrea.ngStrap',
+    'doogie.directives',
     'doogie.controllers',
     'doogie.services'
 ]);

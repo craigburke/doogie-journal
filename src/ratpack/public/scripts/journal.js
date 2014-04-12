@@ -52,7 +52,7 @@ var journalAnimation = function(args) {
         lineCharacterMax: 55,
         panInterval: 15,
         panWidth: 150,
-        typeFrameInterval: 250,
+        typeFrameInterval: 200,
         lineHeight: CONST.LINE_HEIGHT,
         drawWidth: CONST.DRAW_WIDTH
     });
@@ -388,6 +388,9 @@ var journalAnimation = function(args) {
             typingAnimation.stop();
             loopAudio.pause();
             endAudio.pause();
+            loopAudio.volume = 1;
+            loopAudio.currentTime = 0;
+            endAudio.currentTime = 0;
         },
         updateJournalText: function(text) {
             if (typing.typingEnabled) {
@@ -395,9 +398,6 @@ var journalAnimation = function(args) {
                 typing.parseJournalText();
                 renderText();
             }
-        },
-        getJournalText: function() {
-            return journal.text;
         },
         togglePause: function() {
             if (state.current === JOURNAL_STATE.PAUSED) {

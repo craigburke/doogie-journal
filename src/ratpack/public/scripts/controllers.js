@@ -25,18 +25,19 @@ controllers.controller('JournalController', function($scope, JournalService, jou
 
 controllers.controller('AnimationController', function($scope, $interval, JournalService, journal, typingEnabled) {
     $scope.journal = journal;
-    JournalService.set($scope.journal);
+
+    var onStateChange = function(oldState, newState) {
+        $scope.$apply(function() {
+            $scope.state = newState;
+        });
+    }
 
     var doogieAnimation = journalAnimation({
-        journal: $scope.journal,
+        journal: journal,
         containerId: 'canvas',
         loopAudioId: 'loopAudio',
         endAudioId: 'endAudio',
-        onStateChange: function(oldState, newState) {
-            $scope.$apply(function() {
-                $scope.state = newState;
-            });
-        }
+        onStateChange: onStateChange
     });
 
     // Make sure required fonts are loaded before playing animation
@@ -50,23 +51,24 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
         }
     });
 
+    var typingInterval;
+    if (typingEnabled) {
+        typingInterval = $interval(function() {
+            doogieAnimation.updateJournalText($scope.journal.text);
+        }, doogieApp.TYPING_INTERVAL);
+    }
+
     $scope.showPaused = function() {
         return $scope.state === JOURNAL_STATE.PAUSED;
     };
 
-    $scope.showDone = function() {
-        return $scope.state === JOURNAL_STATE.DONE;
+    $scope.showInstructions = function() {
+        return (typingEnabled && $scope.state === JOURNAL_STATE.PLAYING);
     };
 
     $scope.showLink = function() {
         return $scope.journalId;
     };
-
-    if (typingEnabled) {
-        $interval(function() {
-            doogieAnimation.updateJournalText($scope.journal.text);
-        }, doogieApp.TYPING_INTERVAL);
-    }
 
     $scope.hotkeys = function(event) {
         var keyCode = event.which;
@@ -87,6 +89,7 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
         else if (keyCode === doogieApp.KEY.RETURN && typingEnabled) {
             JournalService.save().then(function() {
                 $scope.journalId = JournalService.getId();
+
             });
 
             doogieAnimation.finish();
@@ -101,9 +104,14 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
                 $scope.journal.text += String.fromCharCode(keyCode);
             }
         }
-
-
     };
+
+    $scope.$on('$destroy', function() {
+        if (typingInterval) {
+            $interval.cancel(typingInterval);
+        }
+        doogieAnimation.stop();
+    });
 
 });
 

@@ -2,18 +2,28 @@
 
 <div id="canvas"></div>
 
-<div id="paused" ng-show="showPaused()">
-    Paused, asshole!
+
+<div id="messages">
+    <cb-message type="info" show="showInstructions()">
+        Just click and start typing. Press ENTER when you're finished.
+    </cb-message>
+
+    <cb-message type="info" show="showDone()">
+        Done, asshole!
+    </cb-message>
+
+    <cb-message type="success" show="showLink()">
+        Your journal has been saved. Share it!<br />
+        <a href="#/show/{{journalId}}">http://doogie.seriousbusiness.io/#/show/{{journalId}}</a>
+    </cb-message>
+
+    <cb-message type="info" show="showPaused()">
+        Paused! Press SPACEBAR to continue animation.
+    </cb-message>
+
 </div>
 
-<div id="done" ng-show="showDone()">
-    Done, asshole!
-</div>
 
-<div id="link" ng-show="showLink()">
-    Your journal has been saved. Share it!<br />
-    <a href="#/show/{{journalId}}">http://doogie.seriousbusiness.io/#/show/{{journalId}}</a>
-</div>
 
 <audio id="loopAudio" loop="true" >
     <source src="../audio/doogie-loop.mp3" type="audio/mp3">

@@ -13,6 +13,10 @@
 .datepicker.dropdown-menu tbody{height:180px}
 .datepicker.dropdown-menu tbody button{padding:6px}
 
+.alert.top, .alert.top-left, .alert.top-right {
+    top: 0px;
+    margin: 10px;
+}
 
 html, body {
     width:  100%;
@@ -47,7 +51,7 @@ h1 {
 
 #overlay {
     opacity: 0;
-    z-index: 9999;
+    z-index: 999;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -102,16 +106,4 @@ input {
 
 #enter:after {
     clear: both;
-}
-
-#paused,
-#link {
-    color: #000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px;
-    background: #FFF;
-    z-index: 99999;
 }
