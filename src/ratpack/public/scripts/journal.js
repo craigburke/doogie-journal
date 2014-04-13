@@ -68,6 +68,7 @@ var journalAnimation = function(args) {
     };
 
     var typingAnimation;
+    var loopAudioFadeOut;
 
 
     function animateJournal() {
@@ -204,7 +205,7 @@ var journalAnimation = function(args) {
     }
 
 
-    function renderHeader(journalTitle) {
+    function renderHeader() {
         canvas.headerLayer.removeChildren();
 
         // double lines
@@ -228,7 +229,7 @@ var journalAnimation = function(args) {
 
         // header box with 2 character padding on either side
 
-        var title = journalTitle.toUpperCase();
+        var title = journal.title.toUpperCase();
 
         var headerText = new Kinetic.Text({
             fontFamily: CONST.JOURNAL.FONT_FAMILY,
@@ -366,7 +367,7 @@ var journalAnimation = function(args) {
             });
 
             renderBackground();
-            renderHeader(journal.title);
+            renderHeader();
 
             canvas.journalTextLayer = new Kinetic.Layer({
                 width: canvas.stage.getWidth(),
@@ -385,9 +386,15 @@ var journalAnimation = function(args) {
             typing.typingEnabled = false;
         },
         stop: function() {
+            if (loopAudioFadeOut) {
+                loopAudioFadeOut.cancel();
+            }
+
             typingAnimation.stop();
+
             loopAudio.pause();
             endAudio.pause();
+
             loopAudio.volume = 1;
             loopAudio.currentTime = 0;
             endAudio.currentTime = 0;
