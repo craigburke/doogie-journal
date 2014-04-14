@@ -80,8 +80,8 @@ var journalAnimation = function(args) {
             }
             else {
                 if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.done()) {
-                    renderText();
                     typing.nextCharacter(frame.time);
+                    renderText();
                 }
             }
         }, canvas.journalTextLayer);

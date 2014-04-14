@@ -19,5 +19,4 @@ directives.directive('cbMessage', function($animate) {
         }
     }
 
-
 });

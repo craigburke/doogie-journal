@@ -24,17 +24,17 @@ controllers.controller('JournalController', function($scope, JournalService, Ani
 
     $scope.isEditMode = function() {
         return AnimationService.getIsEditMode();
-    }
+    };
 
     $scope.showLink = function() {
         return $scope.journalId;
-    }
+    };
 
     $scope.save = function() {
         JournalService.save().then(function() {
             $scope.journalId = JournalService.getId();
         });
-    }
+    };
 
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);
@@ -42,7 +42,7 @@ controllers.controller('JournalController', function($scope, JournalService, Ani
     }
 });
 
-controllers.controller('AnimationController', function($scope, $interval, JournalService, AnimationService, journal) {
+controllers.controller('AnimationController', function($scope, $interval, $timeout, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     $scope.typingEnabled = AnimationService.getTypingEnabled();
 
@@ -50,7 +50,7 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
         $scope.$apply(function() {
             $scope.state = newState;
         });
-    }
+    };
 
     var doogieAnimation = journalAnimation({
         journal: journal,
@@ -79,7 +79,7 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
     }
 
     $scope.showPaused = function() {
-        return $scope.state === JOURNAL_STATE.PAUSED;
+        return ($scope.state === JOURNAL_STATE.PAUSED);
     };
 
     $scope.showInstructions = function() {
@@ -88,7 +88,7 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
 
     $scope.showOptions = function() {
         return AnimationService.getIsEditMode();
-    }
+    };
 
     $scope.showLink = function() {
         return $scope.journalId;
@@ -96,14 +96,14 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
 
     $scope.edit = function() {
         AnimationService.setIsEditMode(true);
-    }
+    };
 
     $scope.save = function() {
         AnimationService.setIsEditMode(false);
         JournalService.save().then(function() {
             $scope.journalId = JournalService.getId();
         });
-    }
+    };
 
     $scope.hotkeys = function(event) {
         var keyCode = event.which;
@@ -119,10 +119,14 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
             event.preventDefault();
         }
         else if (keyCode === doogieApp.KEY.ESCAPE && !$scope.typingEnabled) {
-            doogieAnimation.togglePause();
+            $timeout(function() {
+                doogieAnimation.togglePause()
+            });
         }
         else if (keyCode === doogieApp.KEY.RETURN && $scope.typingEnabled) {
             AnimationService.setIsEditMode(true);
+            AnimationService.setTypingEnabled(false);
+
             doogieAnimation.finish();
         }
     };
