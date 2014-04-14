@@ -11,7 +11,7 @@ directives.directive('cbMessage', function($animate) {
             type: '@',
             show: '&'
         },
-        templateUrl: '/templates/message-box.tpl.html',
+        templateUrl: 'templates/message-box.tpl.html',
         controller: function($scope, $element, $attrs) {
             $scope.close = function() {
                 $animate.leave($element);

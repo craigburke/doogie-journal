@@ -13,14 +13,14 @@ app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
             controller: 'JournalController',
-            templateUrl: '/templates/journal.html',
+            templateUrl: 'templates/journal.html',
             resolve: {
                 journal: function(JournalService) { return JournalService.getDefault(); }
             }
         })
         .when('/show', {
             controller: 'AnimationController',
-            templateUrl: '/templates/show.html',
+            templateUrl: 'templates/show.html',
             resolve: {
                 journal: function(JournalService) { return JournalService.get(); },
                 typingEnabled: function() { return true; }
@@ -28,7 +28,7 @@ app.config(function($routeProvider) {
         })
         .when('/show/:id', {
             controller: 'AnimationController',
-            templateUrl: '/templates/show.html',
+            templateUrl: 'templates/show.html',
             resolve: {
                 journal: function($route, JournalService) {
                     var id = $route.current.params.id;
