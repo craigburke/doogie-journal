@@ -18,13 +18,33 @@ var doogieApp = {
 };
 
 
-controllers.controller('JournalController', function($scope, JournalService, journal) {
+controllers.controller('JournalController', function($scope, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
+
+    $scope.isEditMode = function() {
+        return AnimationService.getIsEditMode();
+    }
+
+    $scope.showLink = function() {
+        return $scope.journalId;
+    }
+
+    $scope.save = function() {
+        JournalService.save().then(function() {
+            $scope.journalId = JournalService.getId();
+        });
+    }
+
+    $scope.preview = function() {
+        AnimationService.setTypingEnabled(false);
+        console.log(AnimationService.getTypingEnabled());
+    }
 });
 
-controllers.controller('AnimationController', function($scope, $interval, JournalService, journal, typingEnabled) {
+controllers.controller('AnimationController', function($scope, $interval, JournalService, AnimationService, journal) {
     $scope.journal = journal;
+    $scope.typingEnabled = AnimationService.getTypingEnabled();
 
     var onStateChange = function(oldState, newState) {
         $scope.$apply(function() {
@@ -47,12 +67,12 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
             urls: ['/styles/doogie.css']
         },
         active: function() {
-            doogieAnimation.play(typingEnabled);
+            doogieAnimation.play($scope.typingEnabled);
         }
     });
 
     var typingInterval;
-    if (typingEnabled) {
+    if ($scope.typingEnabled) {
         typingInterval = $interval(function() {
             doogieAnimation.updateJournalText($scope.journal.text);
         }, doogieApp.TYPING_INTERVAL);
@@ -63,17 +83,32 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
     };
 
     $scope.showInstructions = function() {
-        return (typingEnabled && $scope.state === JOURNAL_STATE.PLAYING);
+        return ($scope.typingEnabled && $scope.state === JOURNAL_STATE.PLAYING);
     };
+
+    $scope.showOptions = function() {
+        return AnimationService.getIsEditMode();
+    }
 
     $scope.showLink = function() {
         return $scope.journalId;
     };
 
+    $scope.edit = function() {
+        AnimationService.setIsEditMode(true);
+    }
+
+    $scope.save = function() {
+        AnimationService.setIsEditMode(false);
+        JournalService.save().then(function() {
+            $scope.journalId = JournalService.getId();
+        });
+    }
+
     $scope.hotkeys = function(event) {
         var keyCode = event.which;
 
-        if (keyCode === doogieApp.KEY.BACKSPACE && typingEnabled) {
+        if (keyCode === doogieApp.KEY.BACKSPACE && $scope.typingEnabled) {
             var text = $scope.journal.text;
 
             if (text.length !== 0) {
@@ -83,21 +118,17 @@ controllers.controller('AnimationController', function($scope, $interval, Journa
             $scope.journal.text = text;
             event.preventDefault();
         }
-        else if (keyCode === doogieApp.KEY.ESCAPE && !typingEnabled) {
+        else if (keyCode === doogieApp.KEY.ESCAPE && !$scope.typingEnabled) {
             doogieAnimation.togglePause();
         }
-        else if (keyCode === doogieApp.KEY.RETURN && typingEnabled) {
-            JournalService.save().then(function() {
-                $scope.journalId = JournalService.getId();
-
-            });
-
+        else if (keyCode === doogieApp.KEY.RETURN && $scope.typingEnabled) {
+            AnimationService.setIsEditMode(true);
             doogieAnimation.finish();
         }
     };
 
     $scope.typing = function(event) {
-        if (typingEnabled) {
+        if ($scope.typingEnabled) {
             var keyCode = event.which;
 
             if (doogieApp.isValidCharacter(keyCode)) {

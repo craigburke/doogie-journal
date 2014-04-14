@@ -2,7 +2,8 @@ var services = angular.module('doogie.services', []);
 
 services.factory('JournalService', function($http, $q) {
 
-        var defaultJournal = {
+        var _journalId = null;
+        var _journal = {
             title: "Personal Journal of Doogie Howser M.D.",
             date: new Date(),
             text: "",
@@ -12,25 +13,22 @@ services.factory('JournalService', function($http, $q) {
             }
         };
 
-        var journalId = null;
-        var journal = defaultJournal;
-
         return {
                 set: function(journal) {
-                    this.journal = journal;
+                    _journal = journal;
                 },
                 get: function() {
-                    return journal;
+                    return _journal;
                 },
                 getId: function() {
-                    return journalId;
+                    return _journalId;
                 },
                 load: function(id) {
                     var deferred = $q.defer();
 
                     $http.get('journal/' + id)
                         .success(function(data) {
-                            journal = data;
+                            _journal = data;
                             deferred.resolve(data);
                         })
                         .error(function(reason) {
@@ -42,9 +40,9 @@ services.factory('JournalService', function($http, $q) {
                 save: function() {
                     var deferred = $q.defer();
 
-                    $http.post('journal', journal)
+                    $http.post('journal', _journal)
                         .success(function(data) {
-                            journalId = data.id;
+                            _journalId = data.id;
                             deferred.resolve(data);
                         })
                         .error(function(reason) {
@@ -52,9 +50,29 @@ services.factory('JournalService', function($http, $q) {
                     });
 
                     return deferred.promise;
-                },
-                getDefault: function() {
-                    return defaultJournal;
                 }
         };
+});
+
+services.factory('AnimationService', function() {
+
+    var options = {
+        typingEnabled: true,
+        isEditMode: false
+    }
+
+    return {
+        getTypingEnabled: function() {
+            return options.typingEnabled;
+        },
+        setTypingEnabled: function(typingEnabled) {
+            options.typingEnabled = typingEnabled;
+        },
+        getIsEditMode: function() {
+            return options.isEditMode;
+        },
+        setIsEditMode: function(isEditMode) {
+            options.isEditMode = isEditMode;
+        }
+    }
 });

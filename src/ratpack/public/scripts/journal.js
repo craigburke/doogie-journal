@@ -74,12 +74,12 @@ var journalAnimation = function(args) {
     function animateJournal() {
         typingAnimation = new Kinetic.Animation(function(frame) {
 
-            if (typing.onLastCharacter() && !typing.typingEnabled) {
+            if (typing.done() && !typing.typingEnabled) {
                 typingAnimation.stop();
                 transitionToCredits();
             }
             else {
-                if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.onLastCharacter()) {
+                if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.done()) {
                     renderText();
                     typing.nextCharacter(frame.time);
                 }

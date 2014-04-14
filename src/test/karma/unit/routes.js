@@ -13,9 +13,9 @@ describe('Routes test', function() {
 
     beforeEach(inject(
         function($httpBackend) {
-            $httpBackend.whenGET('/templates/journal.html')
+            $httpBackend.whenGET('templates/journal.html')
                 .respond(200, 'Journal HTML');
-            $httpBackend.whenGET('/templates/show.html')
+            $httpBackend.whenGET('templates/show.html')
                 .respond(200, 'Show Journal');
         }
     ));

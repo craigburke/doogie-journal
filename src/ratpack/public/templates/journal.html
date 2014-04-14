@@ -1,6 +1,11 @@
 <div id="container" class="container">
     <h1>Doogie Howser Journal Generator</h1>
 
+    <cb-message type="success" show="showLink()">
+        Your journal has been saved. Share it!<br />
+        <a href="#/show/{{journalId}}">http://doogie.interwebs.io/#/show/{{journalId}}</a>
+    </cb-message>
+
     <form class="form-horizontal" name="journalForm">
         <fieldset>
             <legend>Journal Entry</legend>
@@ -13,9 +18,16 @@
             </div>
 
             <div class="form-group" ng-class="{'has-error': journalForm.date.$invalid}">
-                <label class="control-label col-sm-2"><i class="fa fa-calendar"></i> Date</label>
+                <label class="control-label col-sm-2">Date</label>
                 <div class="col-sm-2">
                     <input ng-model='journal.date' class="form-control" data-animation="am-fade-and-scale" data-autoclose="true" name="date" disable-timepicker='true' bs-datepicker required />
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="isEditMode()" >
+                <label class="control-label col-sm-2">Text</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="journal.text" rows="3"></textarea>
                 </div>
             </div>
 
@@ -40,8 +52,15 @@
 
         </fieldset>
 
-        <div class="clearfix">
-            <a href="#/show" id="enter" class="btn btn-default btn-lg" ng-click="save()">Enter &#8626;</a>
+        <div class="clearfix" ng-show="!isEditMode()">
+            <a id="enter" class="btn btn-lg btn-primary" href="#/show" >Enter &#8626;</a>
+        </div>
+
+        <div class="clearfix" ng-show="isEditMode()">
+            <div class="pull-right">
+                <a class="btn btn-default" ng-click="preview()" href="#/show"><i class="glyphicon glyphicon-eye-open"></i> Preview</a> or
+                <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Save</a>
+            </div>
         </div>
 
     </form>

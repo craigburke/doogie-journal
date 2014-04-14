@@ -102,14 +102,14 @@ var journalTyping = function(args) {
 
             return {x: x, y: y};
         },
-        onLastCharacter: function() {
+        done: function() {
             return (currentLine === text.length - 1 && positionOnLine === text[currentLine].length - 1);
         },
         isReady: function() {
             return !parsingText;
         },
         nextCharacter: function(time) {
-            if (this.onLastCharacter()) {
+            if (this.done()) {
                 return;
             }
             var currentCharacterTime = Math.floor(time - characterStartTime);

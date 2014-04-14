@@ -13,10 +13,22 @@
 .datepicker.dropdown-menu tbody{height:180px}
 .datepicker.dropdown-menu tbody button{padding:6px}
 
-.alert.top, .alert.top-left, .alert.top-right {
-    top: 0px;
-    margin: 10px;
+
+#messages {
+    position: fixed;
+    margin-top: 10px;
+    top: 0;
+    right: 10px;
+    z-index: 1050;
 }
+
+#messages .alert {
+    min-width: 400px;
+    text-align: center;
+    float: right;
+    clear: both;
+}
+
 
 html, body {
     width:  100%;
@@ -99,6 +111,5 @@ input {
 
 #enter {
     margin-top: 30px;
-    width: 50%;
     float: right;
 }

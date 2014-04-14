@@ -15,26 +15,25 @@ app.config(function($routeProvider) {
             controller: 'JournalController',
             templateUrl: 'templates/journal.html',
             resolve: {
-                journal: function(JournalService) { return JournalService.getDefault(); }
+                journal: function(JournalService) { return JournalService.get(); }
             }
         })
         .when('/show', {
             controller: 'AnimationController',
             templateUrl: 'templates/show.html',
             resolve: {
-                journal: function(JournalService) { return JournalService.get(); },
-                typingEnabled: function() { return true; }
+                journal: function(JournalService) { return JournalService.get(); }
             }
         })
         .when('/show/:id', {
             controller: 'AnimationController',
             templateUrl: 'templates/show.html',
             resolve: {
-                journal: function($route, JournalService) {
+                journal: function($route, JournalService, AnimationService) {
+                    AnimationService.setTypingEnabled(false);
                     var id = $route.current.params.id;
                     return JournalService.load(id);
-                },
-                typingEnabled: function() { return false; }
+                }
             }
         })
         .otherwise({redirectTo: '/'});

@@ -16,7 +16,7 @@ describe('Journal Typing', function() {
     };
 
     var moveToLastCharacter = function(currentCharacter) {
-        while (!typingState.onLastCharacter()) {
+        while (!typingState.done()) {
             typingState.nextCharacter(TYPING_FRAME_INTERVAL * currentCharacter);
             currentCharacter++;
         }

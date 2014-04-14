@@ -3,13 +3,16 @@
 <div id="canvas"></div>
 
 
-<div id="messages">
+<div id="messages" class="clearfix">
     <cb-message type="info" show="showInstructions()">
         Just click and start typing. Press ENTER when you're finished.
     </cb-message>
 
-    <cb-message type="info" show="showDone()">
-        Done, asshole!
+    <cb-message type="info" show="showOptions()">
+        <p>What an incredibly thoughtful journal entry!</p>
+
+        <a class="btn btn-default" ng-click="edit()" href="/#"><i class="glyphicon glyphicon-edit"></i> Edit</a> or
+        <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Save</a>
     </cb-message>
 
     <cb-message type="success" show="showLink()">
@@ -22,8 +25,6 @@
     </cb-message>
 
 </div>
-
-
 
 <audio id="loopAudio" loop="true" >
     <source src="../audio/doogie-loop.mp3" type="audio/mp3">
