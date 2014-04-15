@@ -4,25 +4,22 @@
 
 
 <div id="messages" class="clearfix">
-    <cb-message type="info" show="showInstructions()">
+    <div cb-message data-type="info" data-show="showInstructions()">
         Just click and start typing. Press ENTER when you're finished.
-    </cb-message>
+    </div>
 
-    <cb-message type="info" show="showOptions()">
+    <div cb-message data-type="info" data-show="showOptions()">
         <p>What an incredibly thoughtful journal entry!</p>
 
         <a class="btn btn-default" ng-click="edit()" href="/#"><i class="glyphicon glyphicon-edit"></i> Edit</a> or
         <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Save</a>
-    </cb-message>
+    </div>
 
-    <cb-message type="success" show="showLink()">
-        Your journal has been saved. Share it!<br />
-        <a href="#/show/{{journalId}}">http://doogie.interwebs.io/#/show/{{journalId}}</a>
-    </cb-message>
+    <div cb-journal-link ng-show="journalId" ></div>
 
-    <cb-message type="info" show="showPaused()">
+    <div cb-message data-type="info" data-show="showPaused()">
         Paused! Press ESC to continue animation.
-    </cb-message>
+    </div>
 
 </div>
 

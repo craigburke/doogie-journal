@@ -4,7 +4,7 @@ var directives = angular.module('doogie.directives', ['ngAnimate']);
 
 directives.directive('cbMessage', function($animate) {
     return {
-        restrict: "E",
+        restrict: "A",
         replace: true,
         transclude: true,
         scope: {
@@ -17,6 +17,15 @@ directives.directive('cbMessage', function($animate) {
                 $animate.leave($element);
             }
         }
+    }
+
+});
+
+directives.directive('cbJournalLink', function() {
+    return {
+        restrict: "A",
+        scope: false,
+        templateUrl: 'templates/journal-link.tpl.html'
     }
 
 });

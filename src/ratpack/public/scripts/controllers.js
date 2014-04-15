@@ -21,16 +21,22 @@ var doogieApp = {
 controllers.controller('JournalController', function($scope, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
+    $scope.showInfo = false;
 
     $scope.isEditMode = function() {
         return AnimationService.getIsEditMode();
     };
+
+    $scope.toggleShowInfo = function() {
+        $scope.showInfo = !$scope.showInfo;
+    }
 
     $scope.showLink = function() {
         return $scope.journalId;
     };
 
     $scope.save = function() {
+        AnimationService.setIsEditMode(false);
         JournalService.save().then(function() {
             $scope.journalId = JournalService.getId();
         });

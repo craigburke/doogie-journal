@@ -398,6 +398,7 @@ var journalAnimation = function(args) {
             loopAudio.volume = 1;
             loopAudio.currentTime = 0;
             endAudio.currentTime = 0;
+            canvas.stage.destroy();
         },
         updateJournalText: function(text) {
             if (typing.typingEnabled) {
