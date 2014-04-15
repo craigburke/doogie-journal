@@ -145,15 +145,19 @@ var journalAnimation = function(args) {
         var textLines = typing.getCurrentTextLines();
 
         textLines.forEach(function(line, index) {
-            canvas.journalTextLayer.add(new Kinetic.Text({
+
+            var textLine = new Kinetic.Text({
                 fontFamily: CONST.JOURNAL.FONT_FAMILY,
                 fontSize: CONST.JOURNAL.FONT_SIZE,
                 fill: "#FFFFFF",
                 text: line,
                 x: CONST.LEFT_OFFSET,
                 y: CONST.TOP_OFFSET + ((index + 1) * CONST.LINE_HEIGHT)
-            }));
+            });
+
+            canvas.journalTextLayer.add(textLine);
         });
+
 
         canvas.journalTextLayer.draw();
         panCanvas();
