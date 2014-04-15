@@ -51,13 +51,14 @@ var journalAnimation = function(args) {
         journal: journal,
         lineCharacterMax: 55,
         panInterval: 15,
-        panWidth: 150,
+        panWidth: 100,
         typeFrameInterval: 200,
         lineHeight: CONST.LINE_HEIGHT,
         drawWidth: CONST.DRAW_WIDTH
     });
 
     var canvas = {
+        zoom: 1,
         stage: null,
         backgroundLayer: new Kinetic.Layer(),
         headerLayer: new Kinetic.Layer(),
@@ -172,8 +173,8 @@ var journalAnimation = function(args) {
         if (currentPosition.x != newPosition.x || currentPosition.y != newPosition.y) {
             var tween = new Kinetic.Tween({
                 node: canvas.stage,
-                x: newPosition.x,
-                y: newPosition.y,
+                x: (newPosition.x * canvas.zoom),
+                y: (newPosition.y * canvas.zoom),
                 duration: CONST.PAN_DURATION,
                 easing: Kinetic.Easings.StrongEaseOut
             });
@@ -361,13 +362,13 @@ var journalAnimation = function(args) {
 
             setState(JOURNAL_STATE.PLAYING);
 
-            var zoom = (window.innerWidth / CONST.DRAW_WIDTH) * 2;
+            canvas.zoom = (window.innerWidth / CONST.DRAW_WIDTH) * 2;
             canvas.stage = new Kinetic.Stage({
                 container: containerId,
                 width: window.innerWidth,
                 height: window.innerHeight,
-                scaleX: zoom,
-                scaleY: zoom
+                scaleX: canvas.zoom,
+                scaleY: canvas.zoom
             });
 
             renderBackground();

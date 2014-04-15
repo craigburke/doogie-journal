@@ -2,10 +2,9 @@ var journalTyping = function(args) {
 
     var LINE_CHARACTER_MAX = args.lineCharacterMax || 55;
     var PAN_INTERVAL = args.panInterval || 15;
-    var PAN_WIDTH = args.panWidth || 150;
+    var PAN_WIDTH = args.panWidth || 100;
     var TYPE_FRAME_INTERVAL = args.typeFrameInterval || 5;
     var LINE_HEIGHT = args.lineHeight || 20;
-    var DRAW_WIDTH = args.drawWidth || 600;
     var journal = args.journal;
 
     var text = [];
@@ -94,11 +93,11 @@ var journalTyping = function(args) {
         getPosition: function() {
             return {x: position.x, y: position.y};
         },
-        getLastCharacterPosition: function(stageWidth) {
+        getLastCharacterPosition: function() {
             var panCount = Math.floor(positionOnLine / PAN_INTERVAL);
 
-            var x = panCount * (PAN_WIDTH / DRAW_WIDTH * stageWidth) * -1;
-            var y = 2 * (currentLine * (LINE_HEIGHT * 2)) * -1;
+            var x = panCount * PAN_WIDTH * -1;
+            var y = currentLine * LINE_HEIGHT * -1;
 
             return {x: x, y: y};
         },
