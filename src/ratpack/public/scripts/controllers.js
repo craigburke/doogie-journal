@@ -110,6 +110,10 @@ controllers.controller('AnimationController', function($scope, $interval, $timeo
 
     $scope.replay = function() {
         $route.reload();
+    };
+
+    $scope.createNew = function() {
+        AnimationService.setIsEditMode(true);
     }
 
     $scope.save = function() {
