@@ -21,6 +21,12 @@
         Paused! Press ESC to continue animation.
     </div>
 
+    <div cb-message data-type="info" data-show="showDone()">
+        <p>Well, that was fun. Want to go again?</p>
+        <a class="btn btn-default" ng-click="replay()"><i class="glyphicon glyphicon-repeat"></i> Play again</a> or
+        <a class="btn btn-primary" href="/#index"><i class="glyphicon glyphicon-plus-sign"></i> Create a new journal</a>
+    </div>
+
 </div>
 
 <audio id="loopAudio" loop="true" >

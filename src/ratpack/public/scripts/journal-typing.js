@@ -97,7 +97,7 @@ var journalTyping = function(args) {
             var panCount = Math.floor(positionOnLine / PAN_INTERVAL);
 
             var x = panCount * PAN_WIDTH * -1;
-            var y = currentLine * LINE_HEIGHT * -1;
+            var y = currentLine * (LINE_HEIGHT / 2) * -1;
 
             return {x: x, y: y};
         },

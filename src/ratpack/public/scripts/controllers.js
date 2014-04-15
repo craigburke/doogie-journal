@@ -48,7 +48,7 @@ controllers.controller('JournalController', function($scope, JournalService, Ani
     }
 });
 
-controllers.controller('AnimationController', function($scope, $interval, $timeout, JournalService, AnimationService, journal) {
+controllers.controller('AnimationController', function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     $scope.typingEnabled = AnimationService.getTypingEnabled();
 
@@ -100,9 +100,17 @@ controllers.controller('AnimationController', function($scope, $interval, $timeo
         return $scope.journalId;
     };
 
+    $scope.showDone = function() {
+        return ($scope.state === JOURNAL_STATE.DONE && !AnimationService.getIsEditMode());
+    }
+
     $scope.edit = function() {
         AnimationService.setIsEditMode(true);
     };
+
+    $scope.replay = function() {
+        $route.reload();
+    }
 
     $scope.save = function() {
         AnimationService.setIsEditMode(false);
