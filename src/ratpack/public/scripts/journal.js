@@ -123,19 +123,20 @@ var journalAnimation = function(args) {
     function renderScanLines() {
         canvas.scanLinesLayer.removeChildren();
 
-        for (var i = 0; i <= canvas.stage.getHeight(); i += 1) {
+        for (var i = 0; i <= canvas.stage.getHeight(); i += 1.1) {
             canvas.scanLinesLayer.add(
                 new Kinetic.Line(
                     {
                         points: [[0, i], [CONST.DRAW_WIDTH, i]],
                         stroke: "black",
-                        strokeWidth: .025,
-                        opacity:.8
+                        strokeWidth: 1,
+                        opacity: .15
                     }
                 )
             );
 
         }
+
         canvas.stage.add(canvas.scanLinesLayer);
     }
 
