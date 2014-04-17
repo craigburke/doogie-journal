@@ -1,28 +1,26 @@
 buildscript {
-	repositories {
-		maven { url "http://oss.jfrog.org/repo" }
-	  	mavenCentral()
-	}
-	dependencies {
-        	classpath "io.ratpack:ratpack-gradle:0.9.3"
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:0.9.3"
     }
 }
 
 repositories {
-	maven { url "http://oss.jfrog.org/repo" }
-	mavenCentral()
-	maven { url "http://repo.springsource.org/repo" } // for springloaded
+    jcenter()
+    maven { url "http://repo.springsource.org/repo" } // for springloaded
 }
 
 apply plugin: "ratpack-groovy"
 apply plugin: "idea"
 
 dependencies {
-	compile "io.ratpack:ratpack-jackson:0.9.3"
-	compile "org.mongodb:mongo-java-driver:2.11.4"
-	compile "org.mongodb.morphia:morphia:0.107"
-	springloaded "org.springsource.springloaded:springloaded-core:1.1.4"
-	testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+    compile ratpack.dependency("jackson")
+    compile "org.mongodb:mongo-java-driver:2.11.4"
+    compile "org.mongodb.morphia:morphia:0.107"
+    springloaded "org.springsource.loaded:springloaded:1.1.5.RELEASE"
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
 }
 
 
