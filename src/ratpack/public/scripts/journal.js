@@ -65,7 +65,8 @@ var journalAnimation = function(args) {
         journalTextLayer: new Kinetic.Layer(),
         scanLinesLayer: new Kinetic.Layer(),
         endingLayer: new Kinetic.Layer(),
-        creditsTextLayer: new Kinetic.Layer({ opacity: 0 })
+        creditsTextLayer: new Kinetic.Layer({ opacity: 0 }),
+        creditsFadeAnimation: null
     };
 
     var typingAnimation;
@@ -278,6 +279,9 @@ var journalAnimation = function(args) {
 
     function renderCredits() {
         canvas.endingLayer.removeChildren();
+        if (canvas.creditsFadeAnimation) {
+            canvas.creditsFadeAnimation.destroy();
+        }
 
         endAudio.play();
 
@@ -291,7 +295,7 @@ var journalAnimation = function(args) {
         canvas.stage.add(canvas.endingLayer);
 
         // Fade to black
-        var tween = new Kinetic.Tween({
+        canvas.creditsFadeAnimation = new Kinetic.Tween({
             node: blackRect,
             duration: 2,
             opacity: 1,
@@ -299,7 +303,7 @@ var journalAnimation = function(args) {
                 showCredits();
             }
         });
-        tween.play();
+        canvas.creditsFadeAnimation.play();
     }
 
     function showCredits() {
@@ -337,7 +341,7 @@ var journalAnimation = function(args) {
         canvas.stage.add(canvas.creditsTextLayer);
 
         // Fade credits out
-        var tween = new Kinetic.Tween({
+        canvas.creditsFadeAnimation = new Kinetic.Tween({
             node: canvas.creditsTextLayer,
             opacity: 1,
             duration: 2,
@@ -349,7 +353,7 @@ var journalAnimation = function(args) {
             }
         });
 
-        tween.play();
+        canvas.creditsFadeAnimation.play();
     }
     
     function renderAll() {
