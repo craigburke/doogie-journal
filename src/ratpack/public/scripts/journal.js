@@ -349,7 +349,7 @@ var journalAnimation = function(args) {
             duration: 2,
             onFinish: function() {
                 setTimeout(function() {
-                    tween.reverse();
+                    canvas.creditsFadeAnimation.reverse();
                     setState(JOURNAL_STATE.DONE);
                 }, 2000);
             }

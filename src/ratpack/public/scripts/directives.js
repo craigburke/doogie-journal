@@ -13,8 +13,11 @@ directives.directive('cbMessage', function($animate) {
         },
         templateUrl: 'templates/message-box.tpl.html',
         controller: function($scope, $element, $attrs) {
+
             $scope.close = function() {
-                $animate.leave($element);
+                $animate.leave($element, function() {
+                    $element.remove();
+                });
             }
         }
     }
@@ -24,7 +27,6 @@ directives.directive('cbMessage', function($animate) {
 directives.directive('cbJournalLink', function() {
     return {
         restrict: "A",
-        scope: false,
         templateUrl: 'templates/journal-link.tpl.html'
     }
 
@@ -40,7 +42,7 @@ directives.directive('cbResize', function($window, $parse) {
             angular.element($window).bind('resize', function() {
                 $scope.$apply(function() {
                     onResizeFunction($scope);
-                })
+                });
             });
 
         }
@@ -51,10 +53,10 @@ directives.directive('cbEditable', function($parse) {
     return {
         restrict: "A",
         link: function($scope, $element, $attrs) {
-
-            var isEditable = $parse($attrs.cbEditable)($scope);
-            $element.attr('contenteditable', isEditable);
-            $element.attr('autocorrect', "off");
+            $scope.$watch($attrs.cbEditable, function() {
+                var isEditable = $parse($attrs.cbEditable)($scope);
+                $element.attr("contenteditable", isEditable);
+            });
 
         }
     }

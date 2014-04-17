@@ -51,10 +51,14 @@ controllers.controller('JournalController', function($scope, JournalService, Ani
 controllers.controller('AnimationController', function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     $scope.typingEnabled = AnimationService.getTypingEnabled();
+    $scope.contentEditable = $scope.typingEnabled;
 
     var onStateChange = function(oldState, newState) {
         $scope.$apply(function() {
             $scope.state = newState;
+            if ($scope.state === JOURNAL_STATE.CREDITS) {
+                $scope.contentEditable = false;
+            }
         });
     };
 
