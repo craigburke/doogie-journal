@@ -123,6 +123,10 @@ controllers.controller('AnimationController', function($scope, $interval, $timeo
         });
     };
 
+    $scope.resize = function() {
+        doogieAnimation.rerender();
+    };
+
     $scope.hotkeys = function(event) {
         var keyCode = event.which;
 

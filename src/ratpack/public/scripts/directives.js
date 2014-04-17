@@ -29,3 +29,20 @@ directives.directive('cbJournalLink', function() {
     }
 
 });
+
+directives.directive('cbResize', function($window, $parse) {
+    return {
+        restrict: "A",
+        link: function($scope, $element, $attrs) {
+
+            var onResizeFunction = $parse($attrs.cbResize);
+
+            angular.element($window).bind('resize', function() {
+                $scope.$apply(function() {
+                    onResizeFunction($scope);
+                })
+            });
+
+        }
+    }
+})

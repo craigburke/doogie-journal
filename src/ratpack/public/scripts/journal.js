@@ -72,7 +72,7 @@ var journalAnimation = function(args) {
     var loopAudioFadeOut;
 
 
-    function animateJournal() {
+    function startTypingAnimation() {
         typingAnimation = new Kinetic.Animation(function(frame) {
 
             if (typing.done() && !typing.typingEnabled) {
@@ -351,6 +351,36 @@ var journalAnimation = function(args) {
 
         tween.play();
     }
+    
+    function renderAll() {
+        canvas.zoom = (window.innerWidth / CONST.DRAW_WIDTH) * 2;
+        canvas.stage = new Kinetic.Stage({
+            container: containerId,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            scaleX: canvas.zoom,
+            scaleY: canvas.zoom
+        });
+
+        if (state.current === JOURNAL_STATE.PLAYING) {
+            renderBackground();
+            renderHeader();
+
+            canvas.journalTextLayer = new Kinetic.Layer({
+                width: canvas.stage.getWidth(),
+                height: canvas.stage.getHeight()
+            });
+
+            canvas.stage.add(canvas.journalTextLayer);
+            renderScanLines();
+            renderText();
+        }
+        else if (state.current === JOURNAL_STATE.CREDITS) {
+            renderCredits();
+        }
+
+    }
+    
 
     return {
         play: function (typingEnabled) {
@@ -363,26 +393,8 @@ var journalAnimation = function(args) {
 
             setState(JOURNAL_STATE.PLAYING);
 
-            canvas.zoom = (window.innerWidth / CONST.DRAW_WIDTH) * 2;
-            canvas.stage = new Kinetic.Stage({
-                container: containerId,
-                width: window.innerWidth,
-                height: window.innerHeight,
-                scaleX: canvas.zoom,
-                scaleY: canvas.zoom
-            });
-
-            renderBackground();
-            renderHeader();
-
-            canvas.journalTextLayer = new Kinetic.Layer({
-                width: canvas.stage.getWidth(),
-                height: canvas.stage.getHeight()
-            });
-
-            canvas.stage.add(canvas.journalTextLayer);
-            renderScanLines();
-            animateJournal();
+            renderAll();
+            startTypingAnimation();
         },
         finish: function() {
             if (state.current !== JOURNAL_STATE.PLAYING) {
@@ -405,6 +417,9 @@ var journalAnimation = function(args) {
             loopAudio.currentTime = 0;
             endAudio.currentTime = 0;
             canvas.stage.destroy();
+        },
+        rerender: function() {
+            renderAll();
         },
         updateJournalText: function(text) {
             if (typing.typingEnabled) {
