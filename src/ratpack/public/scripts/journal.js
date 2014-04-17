@@ -94,11 +94,13 @@ var journalAnimation = function(args) {
     function transitionToCredits() {
         var volumeDelta = .1;
         var intervalTime = Math.floor(CONST.CREDITS.TRANSITION_TIME / (volumeDelta * 100));
+        var currentVolume = loopAudio.volume;
 
         var loopAudioFadeOut = setInterval(function() {
-            if (loopAudio.volume > 0) {
-                var volume = loopAudio.volume - volumeDelta;
-                loopAudio.volume = volume.toPrecision(2);
+            if (currentVolume > 0) {
+                var volume = currentVolume - volumeDelta;
+                currentVolume = volume.toPrecision(2);
+                loopAudio.volume = currentVolume;
             }
             else {
                 clearInterval(loopAudioFadeOut);

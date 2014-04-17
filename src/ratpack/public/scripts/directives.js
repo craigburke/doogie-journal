@@ -45,4 +45,17 @@ directives.directive('cbResize', function($window, $parse) {
 
         }
     }
+});
+
+directives.directive('cbEditable', function($parse) {
+    return {
+        restrict: "A",
+        link: function($scope, $element, $attrs) {
+
+            var isEditable = $parse($attrs.cbEditable)($scope);
+            $element.attr('contenteditable', isEditable);
+            $element.attr('autocorrect', "off");
+
+        }
+    }
 })

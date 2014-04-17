@@ -1,4 +1,4 @@
-<div id="overlay" ng-keydown="hotkeys($event)" ng-keypress="typing($event)" tabindex="0" cb-resize="resize()"></div>
+<div id="overlay" ng-keydown="hotkeys($event)" ng-keypress="typing($event)" tabindex="0" cb-resize="resize()" cb-editable="typingEnabled"></div>
 
 <div id="canvas"></div>
 
@@ -12,7 +12,7 @@
         <p>What an incredibly thoughtful journal entry!</p>
 
         <a class="btn btn-default" ng-click="edit()" href="/#"><i class="glyphicon glyphicon-edit"></i> Edit</a> or
-        <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Save</a>
+        <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Share</a>
     </div>
 
     <div cb-journal-link ng-show="journalId" ></div>
