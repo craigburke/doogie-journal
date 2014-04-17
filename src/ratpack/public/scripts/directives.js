@@ -55,6 +55,10 @@ directives.directive('cbEditable', function($parse) {
         link: function($scope, $element, $attrs) {
             $scope.$watch($attrs.cbEditable, function() {
                 var isEditable = $parse($attrs.cbEditable)($scope);
+                if (!isEditable) {
+                    document.activeElement.blur();
+                }
+
                 $element.attr("contenteditable", isEditable);
             });
 
