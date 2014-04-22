@@ -6,12 +6,12 @@ import static ratpack.groovy.Groovy.ratpack
 import static ratpack.jackson.Jackson.fromJson
 import static ratpack.jackson.Jackson.json
 
-import com.craigburke.doogie.TwitterModule
+import com.craigburke.doogie.DoogieModule
 
 ratpack {
     modules {
         register new JacksonModule()
-        register new TwitterModule()
+        register new DoogieModule()
     }
 
     handlers { JournalService service ->
