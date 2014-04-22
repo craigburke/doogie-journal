@@ -30,7 +30,7 @@ class JournalService {
         return datastore.get(Journal, new ObjectId(id))
     }
 
-    String saveFromTweet(Long tweetId) {
+    Journal journalFromTweet(Long tweetId) {
         def tweet = twitter.showStatus(tweetId)
 
         Journal journal = new Journal(
@@ -43,7 +43,7 @@ class JournalService {
             )
         )
 
-        return saveJournal(journal)
+        return journal
     }
 
     private String cleanText(text) {

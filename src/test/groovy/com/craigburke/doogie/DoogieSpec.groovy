@@ -77,17 +77,7 @@ class DoogieSpec extends Specification {
 
     def "Create a journal from tweet"() {
         when:
-        request.contentType("application/json")
-        post("journal/tweet/456062168547753984")
-        journalId = response.jsonPath().get("id")
-
-        then:
-        journalId != null
-    }
-
-    def "Load the tweet journal"() {
-        when:
-        get("journal/${journalId}")
+        get("journal/tweet/456062168547753984")
 
         then:
         with(response.jsonPath()) {
@@ -95,7 +85,6 @@ class DoogieSpec extends Specification {
             get("text") == "This is the dumbest and most amazing thing I’ve ever built. #ratpack #groovylang #angularjs #doogie #internets http://t.co/BXJHFZcchQ"
         }
     }
-
 
 
 }

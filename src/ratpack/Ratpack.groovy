@@ -25,12 +25,12 @@ ratpack {
                 }
             }
 
-            post("tweet/:id") {
+            get("tweet/:id") {
                 def tweetId = pathTokens.asLong("id")
                 background {
-                    service.saveFromTweet(tweetId)
-                } then { String id ->
-                    render json(id: id)
+                    service.journalFromTweet(tweetId)
+                } then { Journal journal ->
+                    render json(journal)
                 }
             }
 

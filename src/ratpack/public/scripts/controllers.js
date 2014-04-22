@@ -43,16 +43,15 @@ controllers.controller('JournalController', function($scope, $location, JournalS
     };
 
     $scope.saveTweet = function() {
-        AnimationService.setIsEditMode(false);
+        AnimationService.setIsEditMode(true);
         AnimationService.setTypingEnabled(false);
-        JournalService.saveFromTweet($scope.tweet.id).then(function() {
+        JournalService.loadFromTweet($scope.tweet.id).then(function() {
             $location.url('/show');
         });
     }
 
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);
-        console.log(AnimationService.getTypingEnabled());
     }
 });
 

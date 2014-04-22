@@ -41,11 +41,12 @@ services.factory('JournalService', function($http, $q) {
                 },
                 save: function() {
                     var deferred = $q.defer();
+                    var that = this;
 
                     $http.post('journal', _journal)
                         .success(function(data) {
                             _journalId = data.id;
-                            this.load(_journalId);
+                            that.load(_journalId);
                             deferred.resolve(data);
                         })
                         .error(function(reason) {
@@ -54,15 +55,13 @@ services.factory('JournalService', function($http, $q) {
 
                     return deferred.promise;
                 },
-                saveFromTweet: function(tweetId) {
+                loadFromTweet: function(tweetId) {
                     var deferred = $q.defer();
-                    var that = this;
 
-                    $http.post('journal/tweet/' + tweetId)
+                    $http.get('journal/tweet/' + tweetId)
                         .success(function(data) {
-                            that.load(data.id).then(function() {
-                                deferred.resolve(data);
-                            });
+                            _journal = data;
+                            deferred.resolve(data);
                         })
                         .error(function(reason) {
                             deferred.reject(reason);
