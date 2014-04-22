@@ -13,6 +13,10 @@
 .datepicker.dropdown-menu tbody{height:180px}
 .datepicker.dropdown-menu tbody button{padding:6px}
 
+.help-block {
+    font-size: .9em;
+
+}
 
 #messages {
     position: fixed;
