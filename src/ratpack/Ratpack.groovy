@@ -6,9 +6,12 @@ import static ratpack.groovy.Groovy.ratpack
 import static ratpack.jackson.Jackson.fromJson
 import static ratpack.jackson.Jackson.json
 
+import com.craigburke.doogie.TwitterModule
+
 ratpack {
     modules {
         register new JacksonModule()
+        register new TwitterModule()
     }
 
     handlers { JournalService service ->
@@ -19,6 +22,15 @@ ratpack {
                     service.getJournal(pathTokens.id)
                 } then { Journal journal ->
                     render json(journal)
+                }
+            }
+
+            post("tweet/:id") {
+                def tweetId = pathTokens.asLong("id")
+                background {
+                    service.saveFromTweet(tweetId)
+                } then { String id ->
+                    render json(id: id)
                 }
             }
 

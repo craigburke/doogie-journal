@@ -18,7 +18,7 @@ var doogieApp = {
 };
 
 
-controllers.controller('JournalController', function($scope, JournalService, AnimationService, journal) {
+controllers.controller('JournalController', function($scope, $location, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
     $scope.showInfo = false;
@@ -41,6 +41,14 @@ controllers.controller('JournalController', function($scope, JournalService, Ani
             $scope.journalId = JournalService.getId();
         });
     };
+
+    $scope.saveTweet = function() {
+        AnimationService.setIsEditMode(false);
+        AnimationService.setTypingEnabled(false);
+        JournalService.saveFromTweet($scope.tweet.id).then(function() {
+            $location.url('/show');
+        });
+    }
 
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);

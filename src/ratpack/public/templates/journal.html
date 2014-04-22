@@ -6,7 +6,7 @@
 
     <form class="form-horizontal" name="journalForm">
         <fieldset>
-            <legend>Journal Entry</legend>
+            <legend>Journal</legend>
 
             <div class="form-group" ng-class="{'has-error': journalForm.title.$invalid}">
                 <label class="control-label col-sm-2">Title</label>
@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-group" ng-class="{'has-error': journalForm.date.$invalid}">
-                <label class="control-label col-sm-2">Date</label>
+                <label class="control-label col-sm-2"><i class="fa fa-calendar"></i> Date</label>
                 <div class="col-sm-2">
                     <input ng-model='journal.date' class="form-control" data-animation="am-fade-and-scale" data-autoclose="true" name="date" disable-timepicker='true' bs-datepicker required />
                 </div>
@@ -51,19 +51,36 @@
         </fieldset>
 
         <div class="clearfix" ng-show="!isEditMode()">
-            <a id="enter" class="btn btn-lg btn-primary pull-right" href="#/show" >Enter <i class="glyphicon glyphicon-chevron-right"></i></a>
+            <a class="btn btn-lg btn-primary pull-right" href="#/show" ng-disabled="journalForm.$invalid" ><i class="fa fa-keyboard-o"></i> Start Typing</a>
         </div>
 
         <div class="clearfix" ng-show="isEditMode()">
             <div class="pull-right">
-                <a class="btn btn-default" ng-click="preview()" href="#/show"><i class="glyphicon glyphicon-eye-open"></i> Preview</a> or
-                <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Share</a>
+                <a class="btn btn-default" ng-click="preview()" href="#/show" ng-disabled="journalForm.$invalid"><i class="glyphicon glyphicon-eye-open"></i> Preview</a> or
+                <a class="btn btn-primary" ng-click="save()" ng-disabled="journalForm.$invalid"><i class="glyphicon glyphicon-ok"></i> Share</a>
             </div>
         </div>
 
     </form>
 
-    <footer>
+    <form class="form-inline" name="tweetForm" ng-show="!isEditMode()">
+        <h3>Tweet to Journal</h3>
+
+
+        <div class="form-group" ng-class="{'has-error': tweetForm.tweetId.$invalid}">
+            <label class="control-label col-sm-4">Tweet URL</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="tweetId" ng-model="tweet.id" size="50" required cb-tweet />
+                <p class="help-block">Ex: https://twitter.com/craigburke1/status/456062168547753984</p>
+            </div>
+        </div>
+
+        <div class="clearfix" >
+            <a class="btn btn-lg btn-primary pull-right" ng-disabled="tweetForm.$invalid" ng-click="saveTweet()" ><i class="fa fa-twitter"></i> Create Journal</a>
+        </div>
+    </form>
+
+        <footer>
         <h2>About</h2>
 
         <p>Made with love by <a href="http://www.craigburke.com">Craig Burke</a>. Oh, and also it was made with
@@ -71,7 +88,7 @@
         <a href="http://www.mongodb.org/">MongoDB</a>,
         <a href="http://www.angularjs.org/">AngularJS</a> and some other cool things.</p>
 
-        <p>You can see the project on <a href="https://github.com/craigburke/doogie">GitHub</a> or just yell at me on twitter <a href="https://twitter.com/craigburke1">@craigburke1</a></p>
+        <p>You can see the project on <a class="btn btn-default btn-sm" href="https://github.com/craigburke/doogie"><i class="fa fa-github"></i> Github</a> or just yell at me on twitter <a class="btn btn-default btn-sm" href="https://twitter.com/craigburke1"><i class="fa fa-twitter"></i> craigburke1</a></p>
 
         <p>Still have no idea what this is about? Educate yourself by reading up on <a href="http://en.wikipedia.org/wiki/Doogie_Howser,_M.D.">Doogie Howser, M.D.</a> or just watch this video</p>
             <iframe width="420" height="315" src="//www.youtube.com/embed/_7FJNdLjLGg?rel=0" frameborder="0" allowfullscreen></iframe>

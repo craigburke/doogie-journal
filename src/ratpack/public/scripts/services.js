@@ -24,9 +24,11 @@ services.factory('JournalService', function($http, $q) {
                     return _journalId;
                 },
                 load: function(id) {
+                    _journalId = id;
+
                     var deferred = $q.defer();
 
-                    $http.get('journal/' + id)
+                    $http.get('journal/' + _journalId)
                         .success(function(data) {
                             _journal = data;
                             deferred.resolve(data);
@@ -43,6 +45,7 @@ services.factory('JournalService', function($http, $q) {
                     $http.post('journal', _journal)
                         .success(function(data) {
                             _journalId = data.id;
+                            this.load(_journalId);
                             deferred.resolve(data);
                         })
                         .error(function(reason) {
@@ -50,6 +53,23 @@ services.factory('JournalService', function($http, $q) {
                     });
 
                     return deferred.promise;
+                },
+                saveFromTweet: function(tweetId) {
+                    var deferred = $q.defer();
+                    var that = this;
+
+                    $http.post('journal/tweet/' + tweetId)
+                        .success(function(data) {
+                            that.load(data.id).then(function() {
+                                deferred.resolve(data);
+                            });
+                        })
+                        .error(function(reason) {
+                            deferred.reject(reason);
+                        });
+
+                    return deferred.promise;
+
                 }
         };
 });

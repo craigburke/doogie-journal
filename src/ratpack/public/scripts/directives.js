@@ -64,4 +64,41 @@ directives.directive('cbEditable', function($parse) {
 
         }
     }
-})
+});
+
+directives.directive('cbTweet', function() {
+    return {
+        restrict: "A",
+        require: 'ngModel',
+        link: function($scope, $element, $attrs, ngModelController) {
+
+            var urlParser = document.createElement('a');
+
+            ngModelController.$parsers.unshift(function(value) {
+                urlParser.href = value;
+                var splitPath = urlParser.pathname.split("/");
+                var tweetId = splitPath[splitPath.length - 1];
+
+                var isValidTweet = true;
+                if (urlParser.host.indexOf("twitter.com") === -1) {
+                    isValidTweet = false;
+                }
+
+                var tweetIdRegEx = /^\s*\d+\s*$/;
+                if (tweetId.search(tweetIdRegEx) === -1) {
+                    isValidTweet = false;
+                }
+
+                ngModelController.$setValidity('tweet', isValidTweet);
+
+                if (isValidTweet) {
+                    return tweetId;
+                }
+                else {
+                    return undefined;
+                }
+
+            });
+        }
+    }
+});

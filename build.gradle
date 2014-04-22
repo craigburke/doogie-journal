@@ -19,6 +19,7 @@ dependencies {
     compile ratpack.dependency("jackson")
     compile "org.mongodb:mongo-java-driver:2.11.4"
     compile "org.mongodb.morphia:morphia:0.107"
+    compile "org.twitter4j:twitter4j-core:4.0.1"
     springloaded "org.springsource.loaded:springloaded:1.1.5.RELEASE"
     testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
 }
