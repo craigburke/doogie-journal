@@ -38,7 +38,7 @@ class JournalService {
             date: tweet.createdAt,
             text: tweet.text,
             credits: new Credits(
-                person: "@tweet.user?.screenName",
+                person: "@${tweet.user?.screenName}",
                 title: "Executive Producer"
             )
         )
