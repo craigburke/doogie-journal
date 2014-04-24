@@ -21,7 +21,6 @@ var journalAnimation = function(args) {
         LINE_HEIGHT : 20,
         TOP_OFFSET : 45,
         LEFT_OFFSET : 50,
-        TYPING_INTERVAL: 200,
 
         JOURNAL : {
             FONT_FAMILY : "DOS",
@@ -53,7 +52,8 @@ var journalAnimation = function(args) {
         lineCharacterMax: 55,
         panInterval: 15,
         panWidth: 100,
-        typeFrameInterval: CONST.TYPING_INTERVAL,
+        minTypingDelay: 100,
+        maxTypingDelay: 200,
         lineHeight: CONST.LINE_HEIGHT,
         drawWidth: CONST.DRAW_WIDTH
     });
@@ -83,9 +83,7 @@ var journalAnimation = function(args) {
             else {
                 if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.done()) {
                     if (typing.nextCharacter(frame.time)) {
-                        // Add a random delay to make typing appear less uniform
-                        var renderDelay = Math.random() * CONST.TYPING_INTERVAL;
-                        setTimeout(renderText(), renderDelay);
+                       renderText();
                     }
                 }
             }
@@ -179,9 +177,8 @@ var journalAnimation = function(args) {
 
 
     function panCanvas() {
-        var newPosition = typing.getLastCharacterPosition(canvas.stage.getWidth());
+        var newPosition = typing.getLastCharacterPosition();
         var currentPosition = typing.getPosition();
-
 
         if (currentPosition.x != newPosition.x || currentPosition.y != newPosition.y) {
             var tween = new Kinetic.Tween({

@@ -3,7 +3,8 @@ var journalTyping = function(args) {
     var LINE_CHARACTER_MAX = args.lineCharacterMax || 55;
     var PAN_INTERVAL = args.panInterval || 15;
     var PAN_WIDTH = args.panWidth || 100;
-    var TYPE_FRAME_INTERVAL = args.typeFrameInterval || 5;
+    var MIN_TYPING_DELAY = args.minTypingDelay || 100;
+    var MAX_TYPING_DELAY = args.maxTypingDelay || 200;
     var LINE_HEIGHT = args.lineHeight || 20;
     var journal = args.journal;
 
@@ -13,6 +14,8 @@ var journalTyping = function(args) {
     var characterStartTime = 0;
     var position = {x: 0, y: 0};
     var parsingText = false;
+
+    var nextCharacterTime = 0;
 
     var updatePosition = function() {
         if (currentLine >= text.length) {
@@ -113,9 +116,8 @@ var journalTyping = function(args) {
             }
 
             var positionChanged = false;
-            var currentCharacterTime = Math.floor(time - characterStartTime);
 
-            if  (currentCharacterTime >= TYPE_FRAME_INTERVAL) {
+            if  (time >= nextCharacterTime) {
                 positionOnLine++;
                 characterStartTime = time;
                 positionChanged = true;
@@ -124,7 +126,11 @@ var journalTyping = function(args) {
             if (text[currentLine].length <= positionOnLine) {
                 positionOnLine = 0;
                 currentLine++;
-                positionChanged = true;
+            }
+
+            if (positionChanged) {
+                var delay = Math.random() * (MAX_TYPING_DELAY - MIN_TYPING_DELAY) + MIN_TYPING_DELAY;
+                nextCharacterTime += delay;
             }
 
             return positionChanged;
