@@ -109,19 +109,25 @@ var journalTyping = function(args) {
         },
         nextCharacter: function(time) {
             if (this.done()) {
-                return;
+                return false;
             }
+
+            var positionChanged = false;
             var currentCharacterTime = Math.floor(time - characterStartTime);
 
             if  (currentCharacterTime >= TYPE_FRAME_INTERVAL) {
                 positionOnLine++;
                 characterStartTime = time;
+                positionChanged = true;
             }
 
             if (text[currentLine].length <= positionOnLine) {
                 positionOnLine = 0;
                 currentLine++;
+                positionChanged = true;
             }
+
+            return positionChanged;
         }
     }
 

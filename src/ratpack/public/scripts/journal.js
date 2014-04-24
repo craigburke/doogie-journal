@@ -74,6 +74,8 @@ var journalAnimation = function(args) {
 
 
     function startTypingAnimation() {
+        var
+
         typingAnimation = new Kinetic.Animation(function(frame) {
 
             if (typing.done() && !typing.typingEnabled) {
@@ -82,8 +84,9 @@ var journalAnimation = function(args) {
             }
             else {
                 if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.done()) {
-                    typing.nextCharacter(frame.time);
-                    renderText();
+                    if (typing.nextCharacter(frame.time)) {
+                        renderText();
+                    }
                 }
             }
         }, canvas.journalTextLayer);
