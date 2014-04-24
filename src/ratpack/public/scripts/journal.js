@@ -93,7 +93,7 @@ var journalAnimation = function(args) {
 
         typingAnimation.start();
 
-        if (!state.typingEnabled) {
+        if (!typing.typingEnabled) {
             typingAudio.play();
         }
     }
