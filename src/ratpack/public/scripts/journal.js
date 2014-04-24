@@ -16,10 +16,11 @@ var journalAnimation = function(args) {
 
     var CONST = {
         DRAW_WIDTH : 600,
-        PAN_DURATION : 2,
+        PAN_DURATION :.8,
         LINE_HEIGHT : 20,
         TOP_OFFSET : 45,
         LEFT_OFFSET : 50,
+        TYPING_INTERVAL: 200,
 
         JOURNAL : {
             FONT_FAMILY : "DOS",
@@ -35,7 +36,6 @@ var journalAnimation = function(args) {
             TOP_OFFSET: 20,
             BACKGROUND_COLOR: "#2FDEC1"
         },
-
         BACKGROUND : {
             GRADIENT_STOPS : [0, '#7C7CAA',.5, '#4343AD', 1, '#202052']
         }
@@ -52,7 +52,7 @@ var journalAnimation = function(args) {
         lineCharacterMax: 55,
         panInterval: 15,
         panWidth: 100,
-        typeFrameInterval: 200,
+        typeFrameInterval: CONST.TYPING_INTERVAL,
         lineHeight: CONST.LINE_HEIGHT,
         drawWidth: CONST.DRAW_WIDTH
     });
@@ -72,10 +72,7 @@ var journalAnimation = function(args) {
     var typingAnimation;
     var loopAudioFadeOut;
 
-
     function startTypingAnimation() {
-        var
-
         typingAnimation = new Kinetic.Animation(function(frame) {
 
             if (typing.done() && !typing.typingEnabled) {
@@ -85,7 +82,9 @@ var journalAnimation = function(args) {
             else {
                 if (state.current == JOURNAL_STATE.PLAYING && typing.isReady() && !typing.done()) {
                     if (typing.nextCharacter(frame.time)) {
-                        renderText();
+                        // Add a random delay to make typing appear less uniform
+                        var renderDelay = Math.random() * CONST.TYPING_INTERVAL;
+                        setTimeout(renderText(), renderDelay);
                     }
                 }
             }
