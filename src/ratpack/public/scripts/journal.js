@@ -92,7 +92,10 @@ var journalAnimation = function(args) {
         }, canvas.journalTextLayer);
 
         typingAnimation.start();
-        typingAudio.play();
+
+        if (!state.typingEnabled) {
+            typingAudio.play();
+        }
     }
 
     function transitionToCredits() {
