@@ -13,6 +13,7 @@ var journalAnimation = function(args) {
     var containerId = args.containerId || "container";
     var loopAudio = document.getElementById(args.loopAudioId || "loopAudio");
     var endAudio =  document.getElementById(args.endAudioId || "endAudio");
+    var typingAudio = document.getElementById(args.typingAudioId || "typingAudio");
 
     var CONST = {
         DRAW_WIDTH : 600,
@@ -91,9 +92,12 @@ var journalAnimation = function(args) {
         }, canvas.journalTextLayer);
 
         typingAnimation.start();
+        typingAudio.play();
     }
 
     function transitionToCredits() {
+        typingAudio.pause();
+
         var volumeDelta = .1;
         var intervalTime = Math.floor(CONST.CREDITS.TRANSITION_TIME / (volumeDelta * 100));
         var currentVolume = loopAudio.volume;
@@ -419,6 +423,7 @@ var journalAnimation = function(args) {
             typingAnimation.stop();
 
             loopAudio.pause();
+            typingAnimation.pause();
             endAudio.pause();
 
             loopAudio.volume = 1;
@@ -438,9 +443,11 @@ var journalAnimation = function(args) {
         },
         togglePause: function() {
             if (state.current === JOURNAL_STATE.PAUSED) {
+                typingAudio.play();
                 setState(state.previous);
             }
             else {
+                typingAudio.pause();
                 setState(JOURNAL_STATE.PAUSED);
             }
         }

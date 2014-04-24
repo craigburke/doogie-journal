@@ -22,12 +22,15 @@ describe('Journal', function() {
         $(container).append('<div id="canvas" />');
         $(container).append('<audio id="loopAudio" />');
         $(container).append('<audio id="endAudio" />');
+        $(container).append('<audio id="typingAudio" />');
+
 
         animation = journalAnimation({
                 journal: journal,
                 containerId: 'canvas',
                 loopAudioId: 'loopAudio',
                 endAudioId: 'endAudio',
+                typingAudioId: 'typingAudio',
                 onStateChange: function(oldState, newState) {
                     currentState = newState;
                     if (onStateChange) {

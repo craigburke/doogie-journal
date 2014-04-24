@@ -74,6 +74,7 @@ controllers.controller('AnimationController', function($scope, $interval, $timeo
         containerId: 'canvas',
         loopAudioId: 'loopAudio',
         endAudioId: 'endAudio',
+        typingAudioId: 'typingAudio',
         onStateChange: onStateChange
     });
 
