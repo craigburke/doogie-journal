@@ -52,8 +52,8 @@ var journalAnimation = function(args) {
         lineCharacterMax: 55,
         panInterval: 15,
         panWidth: 100,
-        minTypingDelay: 100,
-        maxTypingDelay: 200,
+        minTypingDelay: 200,
+        maxTypingDelay: 350,
         lineHeight: CONST.LINE_HEIGHT,
         drawWidth: CONST.DRAW_WIDTH
     });
@@ -103,7 +103,7 @@ var journalAnimation = function(args) {
         var intervalTime = Math.floor(CONST.CREDITS.TRANSITION_TIME / (volumeDelta * 100));
         var currentVolume = loopAudio.volume;
 
-        var loopAudioFadeOut = setInterval(function() {
+        loopAudioFadeOut = setInterval(function() {
             if (currentVolume > 0) {
                 var volume = currentVolume - volumeDelta;
                 currentVolume = volume.toPrecision(2);
@@ -392,7 +392,27 @@ var journalAnimation = function(args) {
         }
 
     }
-    
+
+    function resetAudioState() {
+        loopAudio.pause();
+        endAudio.pause();
+        typingAudio.pause();
+
+        loopAudio.loop = true;
+        typingAudio.loop = true;
+
+        if (loopAudio.readyState > 0) {
+            loopAudio.volume = 1;
+            loopAudio.currentTime = 0;
+        }
+        if (endAudio.readyState > 0) {
+            endAudio.currentTime = 0;
+        }
+        if (typingAudio.readyState > 0) {
+            typingAudio.currentTime = 0;
+        }
+    }
+
 
     return {
         play: function (typingEnabled) {
@@ -400,6 +420,7 @@ var journalAnimation = function(args) {
                 return;
             }
 
+            resetAudioState();
             typing.typingEnabled = typingEnabled;
             loopAudio.play();
 
@@ -421,14 +442,8 @@ var journalAnimation = function(args) {
             }
 
             typingAnimation.stop();
+            resetAudioState();
 
-            loopAudio.pause();
-            typingAnimation.pause();
-            endAudio.pause();
-
-            loopAudio.volume = 1;
-            loopAudio.currentTime = 0;
-            endAudio.currentTime = 0;
             canvas.stage.destroy();
         },
         rerender: function() {

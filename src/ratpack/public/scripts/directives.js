@@ -1,18 +1,19 @@
 'use strict';
 
-var directives = angular.module('doogie.directives', ['ngAnimate']);
+angular.module('doogie.directives', ['ngAnimate'])
 
-directives.directive('cbMessage', function($animate) {
+.directive('cbMessage', function($animate) {
     return {
         restrict: "A",
-        replace: true,
         transclude: true,
         scope: {
-            type: '@',
-            show: '&'
+            type: '@'
         },
         templateUrl: 'templates/message-box.tpl.html',
         controller: function($scope, $element, $attrs) {
+            $element.addClass("alert");
+            $element.addClass("alert-" + $attrs.type);
+            $element.addClass("am-fade-and-scale");
 
             $scope.close = function() {
                 $animate.leave($element, function() {
@@ -22,17 +23,17 @@ directives.directive('cbMessage', function($animate) {
         }
     }
 
-});
+})
 
-directives.directive('cbJournalLink', function() {
+.directive('cbJournalLink', function() {
     return {
         restrict: "A",
         templateUrl: 'templates/journal-link.tpl.html'
     }
 
-});
+})
 
-directives.directive('cbResize', function($window, $parse) {
+.directive('cbResize', function($window, $parse) {
     return {
         restrict: "A",
         link: function($scope, $element, $attrs) {
@@ -47,9 +48,9 @@ directives.directive('cbResize', function($window, $parse) {
 
         }
     }
-});
+})
 
-directives.directive('cbEditable', function($parse) {
+.directive('cbEditable', function($parse) {
     return {
         restrict: "A",
         link: function($scope, $element, $attrs) {
@@ -64,9 +65,9 @@ directives.directive('cbEditable', function($parse) {
 
         }
     }
-});
+})
 
-directives.directive('cbTweet', function() {
+.directive('cbTweet', function() {
     return {
         restrict: "A",
         require: 'ngModel',

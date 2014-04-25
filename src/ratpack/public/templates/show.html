@@ -4,36 +4,37 @@
 
 
 <div id="messages" class="clearfix">
-    <div cb-message data-type="info" data-show="showInstructions()">
+
+    <div id="instructions" ng-show="showInstructions()" cb-message data-type="info">
         Just click and start typing. Press ENTER when you're finished.
     </div>
 
-    <div cb-message data-type="info" data-show="showOptions()">
+    <div id="options" ng-show="showOptions()" cb-message data-type="info">
         <p>What an incredibly thoughtful journal entry!</p>
 
-        <a class="btn btn-default" ng-click="edit()" href="/#"><i class="glyphicon glyphicon-edit"></i> Edit</a> or
-        <a class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Share</a>
+        <a id="edit" class="btn btn-default" ng-click="edit()" href="/#"><i class="glyphicon glyphicon-edit"></i> Edit</a> or
+        <a id="save" class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i> Share</a>
     </div>
 
     <div cb-journal-link ng-show="journalId" ></div>
 
-    <div cb-message data-type="info" data-show="showPaused()">
+    <div id="paused" ng-show="showPaused()" cb-message data-type="info">
         Paused! Press ESC to continue animation.
     </div>
 
-    <div cb-message data-type="info" data-show="showDone()">
+    <div id="done" ng-if="showDone()" cb-message data-type="info">
         <p>Well, that was fun. Want to go again?</p>
-        <a class="btn btn-default" ng-click="replay()"><i class="glyphicon glyphicon-repeat"></i> Play again</a> or
-        <a class="btn btn-primary" href="/#index" ng-click="createNew()"><i class="glyphicon glyphicon-plus-sign"></i> Create a new journal</a>
+        <a id="replay" class="btn btn-default" ng-click="replay()"><i class="glyphicon glyphicon-repeat"></i> Play again</a> or
+        <a id="create" class="btn btn-primary" href="/#index" ng-click="createNew()"><i class="glyphicon glyphicon-plus-sign"></i> Create a new journal</a>
     </div>
 
 </div>
 
-<audio id="loopAudio" loop >
+<audio id="loopAudio" loop="loop" >
     <source src="../audio/doogie-loop.mp3" type="audio/mp3">
 </audio>
 
-<audio id="typingAudio" loop >
+<audio id="typingAudio" loop="loop" >
     <source src="../audio/typing.mp3" type="audio/mp3">
 </audio>
 

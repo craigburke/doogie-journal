@@ -11,9 +11,9 @@ module.exports = function(config) {
         'ratpack/public/vendor/*.js',
 
         'ratpack/public/scripts/*.js',
-        'test/karma/lib/angular-mocks.js',
-        'test/karma/lib/jquery-2.1.0.min.js',
-        'test/karma/unit/*.js'
+        'test/js/lib/angular-mocks.js',
+        'test/js/lib/jquery-2.1.0.min.js',
+        'test/js/unit/*.js'
     ],
 
     exclude: [    ],

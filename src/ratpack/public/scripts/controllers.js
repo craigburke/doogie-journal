@@ -1,7 +1,5 @@
 'use strict';
 
-var controllers = angular.module('doogie.controllers', []);
-
 var doogieApp = {
     TYPING_INTERVAL: 100,
 
@@ -17,8 +15,9 @@ var doogieApp = {
 
 };
 
+angular.module('doogie.controllers', [])
 
-controllers.controller('JournalController', function($scope, $location, JournalService, AnimationService, journal) {
+.controller('JournalController', function($scope, $location, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
     $scope.showInfo = false;
@@ -53,9 +52,9 @@ controllers.controller('JournalController', function($scope, $location, JournalS
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);
     }
-});
+})
 
-controllers.controller('AnimationController', function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
+.controller('AnimationController', function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     $scope.typingEnabled = AnimationService.getTypingEnabled();
     $scope.contentEditable = $scope.typingEnabled;

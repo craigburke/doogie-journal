@@ -1,6 +1,6 @@
-<div cb-message data-type="success" data-show="journalId">
+<div ng-show="journalId" cb-message data-type="success">
     Your journal has been saved.<br />
-    <a href="#/show/{{journalId}}">
+    <a id="journalLink" href="#/show/{{journalId}}">
         <span class="visible-xs">Watch it</span>
         <span class="hidden-xs">http://doogie.interwebs.io/#/show/{{journalId}}</span>
     </a>

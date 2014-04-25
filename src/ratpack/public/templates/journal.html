@@ -51,13 +51,13 @@
         </fieldset>
 
         <div class="clearfix" ng-show="!isEditMode()">
-            <a class="btn btn-lg btn-primary pull-right" href="#/show" ng-disabled="journalForm.$invalid" ><i class="fa fa-keyboard-o"></i> Start Typing</a>
+            <a id="startTyping" class="btn btn-lg btn-primary pull-right" href="#/show" ng-disabled="journalForm.$invalid" ><i class="fa fa-keyboard-o"></i> Start Typing</a>
         </div>
 
-        <div class="clearfix" ng-show="isEditMode()">
+        <div id="options" class="clearfix" ng-show="isEditMode()">
             <div class="pull-right">
-                <a class="btn btn-default" ng-click="preview()" href="#/show" ng-disabled="journalForm.$invalid"><i class="glyphicon glyphicon-eye-open"></i> Preview</a> or
-                <a class="btn btn-primary" ng-click="save()" ng-disabled="journalForm.$invalid"><i class="glyphicon glyphicon-ok"></i> Share</a>
+                <a id="preview" class="btn btn-default" ng-click="preview()" href="#/show" ng-disabled="journalForm.$invalid"><i class="glyphicon glyphicon-eye-open"></i> Preview</a> or
+                <a id="save" class="btn btn-primary" ng-click="save()" ng-disabled="journalForm.$invalid"><i class="glyphicon glyphicon-ok"></i> Share</a>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
         </div>
 
         <div class="clearfix" >
-            <a class="btn btn-lg btn-primary pull-right" ng-disabled="tweetForm.$invalid" ng-click="saveTweet()" ><i class="fa fa-twitter"></i> Create Journal</a>
+            <a id="saveTweet" class="btn btn-lg btn-primary pull-right" ng-disabled="tweetForm.$invalid" ng-click="saveTweet()" ><i class="fa fa-twitter"></i> Create Journal</a>
         </div>
     </form>
 
