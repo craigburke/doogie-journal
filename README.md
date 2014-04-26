@@ -1,5 +1,5 @@
 Doogie Howser Journal Generator
-=====
+===============================
 
 [![Build Status](https://drone.io/github.com/craigburke/doogie/status.png)](https://drone.io/github.com/craigburke/doogie/latest)
 
@@ -12,11 +12,12 @@ This is a Ratpack / AngularJS application that allows you to make your own Doogi
   * MongoDB running locally
   * JDK (7 or 8)
 
-**Starting the app**
+Starting the app
+----------------
 
     ./gradlew run
 
-**Twitter integration**
+### Twitter setup
 
 In order to get the twitter integration working, you'll need to create an application and generate an access token on [Twitter's development site](https://dev.twitter.com/).
 
@@ -28,12 +29,42 @@ Create a file **src/ratpack/twitter4j.properties** that looks like this:
      oauth.accessTokenSecret=******************************************
 
 
-**Running tests**
+Running Tests
+-------------
 
-Spock tests (Groovy)
+### Spock tests (Groovy)
 
+#### Running the tests
     ./gradlew test
 
-Jasmine tests (Javascript). You might need to run npm update if you don't have karma installed.
+### Jasmine tests (Unit tests)
 
-    karma start src/test/karma/karma.conf.js
+**Setup**
+
+    npm install -g karma
+    npm install -g karma-cli
+    npm install
+
+**Running the tests**
+
+    karma start src/test/js/karma.conf.js
+
+### Protractor tests (E2E tests)
+
+**Setup**
+
+    npm install -g protractor
+    npm install
+    webdriver-manager
+
+    # Download and start selenium
+    webdriver-manager update
+    webdriver-manager start
+
+See: [Protractor Readme](https://github.com/angular/protractor)
+
+**Running the tests**
+
+Make sure both the app and selenium are running, then type:
+
+    protractor src/test/js/protractor.conf.js
