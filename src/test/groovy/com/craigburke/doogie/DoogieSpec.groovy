@@ -82,7 +82,7 @@ class DoogieSpec extends Specification {
         then:
         with(response.jsonPath()) {
             get("title") == "Personal Journal of Craig Burke"
-            get("text") == "This is the dumbest and most amazing thing I’ve ever built. #ratpack #groovylang #angularjs #doogie #internets http://t.co/BXJHFZcchQ"
+            get("text") == "This is the dumbest and most amazing thing I\u2019ve ever built. #ratpack #groovylang #angularjs #doogie #internets http://t.co/BXJHFZcchQ"
         }
     }
 

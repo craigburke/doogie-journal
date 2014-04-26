@@ -28,6 +28,18 @@ var journalTyping = function(args) {
         }
     };
 
+    function replaceUnsupportedCharacters(string) {
+        var replacementMap = [
+            {'new': "'", 'old': /[\u2019]/g}
+        ];
+
+        for(var i=0; i < replacementMap.length; i++) {
+            string = string.replace(replacementMap[i].old, replacementMap[i].new);
+        }
+
+        return string;
+    }
+
     var parseText = function() {
         // Break up text into lines based on LINE_CHARACTER_MAX ensuring that words don't get cropped
         parsingText = true;
@@ -37,7 +49,7 @@ var journalTyping = function(args) {
         var date = new Date(journal.date);
         var formattedDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
 
-        var journalText = formattedDate.toUpperCase() + "... " + journal.text.trim();
+        var journalText = formattedDate.toUpperCase() + "... " + replaceUnsupportedCharacters(journal.text.trim());
 
         var position = 0;
 

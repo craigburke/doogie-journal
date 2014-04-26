@@ -36,7 +36,7 @@ class JournalService {
         Journal journal = new Journal(
             title: "Personal Journal of ${tweet.user?.name}",
             date: tweet.createdAt,
-            text: cleanText(tweet.text),
+            text: tweet.text,
             credits: new Credits(
                 person: "@${tweet.user?.screenName}",
                 title: "Executive Producer"
@@ -44,10 +44,6 @@ class JournalService {
         )
 
         return journal
-    }
-
-    private String cleanText(text) {
-        text.replace('’', "'")
     }
 
     String saveJournal(Journal journal) {

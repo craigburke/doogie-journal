@@ -73,6 +73,7 @@ var journalAnimation = function(args) {
     var typingAnimation;
     var loopAudioFadeOut;
 
+
     function startTypingAnimation() {
         typingAnimation = new Kinetic.Animation(function(frame) {
 
@@ -95,6 +96,7 @@ var journalAnimation = function(args) {
             typingAudio.play();
         }
     }
+
 
     function transitionToCredits() {
         typingAudio.pause();
