@@ -1,6 +1,8 @@
 Doogie Howser Journal Generator
 =====
 
+[![Build Status](https://drone.io/github.com/craigburke/doogie/status.png)](https://drone.io/github.com/craigburke/doogie/latest)
+
 This is a Ratpack / AngularJS application that allows you to make your own Doogie Howser style journals.
 
 [See the live site](http://doogie.interwebs.io)
