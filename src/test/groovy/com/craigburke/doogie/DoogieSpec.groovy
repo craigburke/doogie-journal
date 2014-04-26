@@ -86,10 +86,5 @@ class DoogieSpec extends Specification {
         }
     }
 
-    def "Failing test"() {
-        expect:
-        true == false
-    }
-
 
 }
