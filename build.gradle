@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.ratpack:ratpack-gradle:0.9.3"
+        classpath "io.ratpack:ratpack-gradle:0.9.4"
         classpath "org.jsoup:jsoup:1.7.3"
     }
 }

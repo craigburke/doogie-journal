@@ -18,7 +18,7 @@ ratpack {
         prefix('journal') {
 
             get(":id") {
-                background {
+                blocking {
                     service.getJournal(pathTokens.id)
                 } then { Journal journal ->
                     render json(journal)
@@ -27,7 +27,7 @@ ratpack {
 
             get("tweet/:id") {
                 def tweetId = pathTokens.asLong("id")
-                background {
+                blocking {
                     service.journalFromTweet(tweetId)
                 } then { Journal journal ->
                     render json(journal)
@@ -36,7 +36,7 @@ ratpack {
 
             post {
                 Journal journal = parse fromJson(Journal)
-                background {
+                blocking {
                     service.saveJournal(journal)
                 } then { String id ->
                     render json(id: id)
