@@ -70,8 +70,7 @@ angular.module('doogie.directives', ['ngAnimate'])
     return {
         restrict: "A",
         require: 'ngModel',
-        link: ['$scope', '$element', '$attrs', 'ngModelController',
-            function($scope, $element, $attrs, ngModelController) {
+        link: function($scope, $element, $attrs, ngModelController) {
 
             var urlParser = document.createElement('a');
 
@@ -100,6 +99,6 @@ angular.module('doogie.directives', ['ngAnimate'])
                 }
 
             });
-        }]
+        }
     }
 });
