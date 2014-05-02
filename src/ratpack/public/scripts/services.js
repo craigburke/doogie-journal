@@ -1,6 +1,5 @@
-var services = angular.module('doogie.services', []);
-
-services.factory('JournalService', function($http, $q) {
+angular.module('doogie.services', [])
+.factory('JournalService', ['$http', '$q', function($http, $q) {
 
         var _journalId = null;
         var _journal = {
@@ -71,9 +70,8 @@ services.factory('JournalService', function($http, $q) {
 
                 }
         };
-});
-
-services.factory('AnimationService', function() {
+}])
+.factory('AnimationService', function() {
 
     var options = {
         typingEnabled: true,

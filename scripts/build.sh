@@ -33,14 +33,14 @@ function run_spock_tests {
 	./gradlew test
 }
 
-function run_protractor_tests {
-	./gradlew run  > /dev/null 2>&1 &
-	while ! curl http://localhost:5050/ &> /dev/null; do sleep 5; done
-	protractor src/test/js/protractor.conf.js
+function build_app {
+	./gradlew buildApp
 }
 
-function build_app {
-	./gradlew installApp
+function run_protractor_tests {
+	./build/install/doogie/bin/doogie > /dev/null 2>&1 &
+	while ! curl http://localhost:5050/ &> /dev/null; do sleep 5; done
+	protractor src/test/js/protractor.conf.js
 }
 
 set_twitter_config
@@ -48,5 +48,5 @@ start_selenium
 npm_install "karma karma-cli protractor"
 run_karma_tests
 run_spock_tests
-run_protractor_tests
 build_app
+run_protractor_tests

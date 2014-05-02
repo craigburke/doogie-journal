@@ -30,11 +30,11 @@ var journalTyping = function(args) {
 
     function replaceUnsupportedCharacters(string) {
         var replacementMap = [
-            {'new': "'", 'old': /[\u2019]/g}
+            {'newChar': "'", 'oldChar': /[\u2019]/g}
         ];
 
         for(var i=0; i < replacementMap.length; i++) {
-            string = string.replace(replacementMap[i].old, replacementMap[i].new);
+            string = string.replace(replacementMap[i].oldChar, replacementMap[i].newChar);
         }
 
         return string;

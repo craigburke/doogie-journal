@@ -17,7 +17,8 @@ var doogieApp = {
 
 angular.module('doogie.controllers', [])
 
-.controller('JournalController', function($scope, $location, JournalService, AnimationService, journal) {
+.controller('JournalController', ['$scope', '$location', 'JournalService', 'AnimationService', 'journal',
+function($scope, $location, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
     $scope.showInfo = false;
@@ -52,9 +53,10 @@ angular.module('doogie.controllers', [])
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);
     }
-})
+}])
 
-.controller('AnimationController', function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
+.controller('AnimationController', ['$scope', '$interval', '$timeout', '$route', 'JournalService', 'AnimationService' , 'journal',
+function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     $scope.typingEnabled = AnimationService.getTypingEnabled();
     $scope.contentEditable = $scope.typingEnabled;
@@ -181,6 +183,6 @@ angular.module('doogie.controllers', [])
         doogieAnimation.stop();
     });
 
-});
+}]);
 
 

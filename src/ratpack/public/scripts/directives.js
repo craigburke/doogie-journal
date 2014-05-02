@@ -2,7 +2,7 @@
 
 angular.module('doogie.directives', ['ngAnimate'])
 
-.directive('cbMessage', function($animate) {
+.directive('cbMessage', ['$animate', function($animate) {
     return {
         restrict: "A",
         transclude: true,
@@ -10,7 +10,7 @@ angular.module('doogie.directives', ['ngAnimate'])
             type: '@'
         },
         templateUrl: 'templates/message-box.tpl.html',
-        controller: function($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
             $element.addClass("alert");
             $element.addClass("alert-" + $attrs.type);
             $element.addClass("am-fade-and-scale");
@@ -20,23 +20,22 @@ angular.module('doogie.directives', ['ngAnimate'])
                     $element.remove();
                 });
             }
-        }
+        }]
     }
 
-})
+}])
 
 .directive('cbJournalLink', function() {
     return {
         restrict: "A",
         templateUrl: 'templates/journal-link.tpl.html'
     }
-
 })
 
-.directive('cbResize', function($window, $parse) {
+.directive('cbResize', ['$window', '$parse', function($window, $parse) {
     return {
         restrict: "A",
-        link: function($scope, $element, $attrs) {
+        link: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
 
             var onResizeFunction = $parse($attrs.cbResize);
 
@@ -46,14 +45,14 @@ angular.module('doogie.directives', ['ngAnimate'])
                 });
             });
 
-        }
+        }]
     }
-})
+}])
 
-.directive('cbEditable', function($parse) {
+.directive('cbEditable', ['$parse', function($parse) {
     return {
         restrict: "A",
-        link: function($scope, $element, $attrs) {
+        link: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
             $scope.$watch($attrs.cbEditable, function() {
                 var isEditable = $parse($attrs.cbEditable)($scope);
                 if (!isEditable) {
@@ -63,15 +62,16 @@ angular.module('doogie.directives', ['ngAnimate'])
                 $element.attr("contenteditable", isEditable);
             });
 
-        }
+        }]
     }
-})
+}])
 
 .directive('cbTweet', function() {
     return {
         restrict: "A",
         require: 'ngModel',
-        link: function($scope, $element, $attrs, ngModelController) {
+        link: ['$scope', '$element', '$attrs', 'ngModelController',
+            function($scope, $element, $attrs, ngModelController) {
 
             var urlParser = document.createElement('a');
 
@@ -100,6 +100,6 @@ angular.module('doogie.directives', ['ngAnimate'])
                 }
 
             });
-        }
+        }]
     }
 });
