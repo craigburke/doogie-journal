@@ -5,8 +5,8 @@ module.exports = function(config) {
 
     files: [
         'ratpack/public/vendor/angularjs/angular.min.js',
-        'ratpack/public/vendor/angularjs/angular-route.min.js',
-        'ratpack/public/vendor/angularjs/angular-animate.min.js',
+        'ratpack/public/vendor/angularjs/angular-route.js',
+        'ratpack/public/vendor/angularjs/angular-animate.js',
         'ratpack/public/vendor/angular-strap/*.js',
         'ratpack/public/vendor/*.js',
 
