@@ -126,6 +126,7 @@ function($scope, $interval, $timeout, $route, JournalService, AnimationService, 
     };
 
     $scope.createNew = function() {
+        JournalService.setId(null);
         AnimationService.setIsEditMode(true);
     }
 

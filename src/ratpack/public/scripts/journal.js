@@ -9,8 +9,10 @@ var JOURNAL_STATE = {
 var journalAnimation = function(args) {
 
     var journal = args.journal;
+
     var onStateChange = args.onStateChange;
     var containerId = args.containerId || "container";
+
     var loopAudio = document.getElementById(args.loopAudioId || "loopAudio");
     var endAudio =  document.getElementById(args.endAudioId || "endAudio");
     var typingAudio = document.getElementById(args.typingAudioId || "typingAudio");
@@ -72,12 +74,12 @@ var journalAnimation = function(args) {
     var animation = {
         creditsFade: null,
         typing: null
-    }
+    };
 
     var transition = {
         loopAudioFadeOut: null,
         creditsFadeOut: null
-    }
+    };
 
     function startTypingAnimation() {
         animation.typing = new Kinetic.Animation(function(frame) {
@@ -96,10 +98,6 @@ var journalAnimation = function(args) {
         }, canvas.journalTextLayer);
 
         animation.typing.start();
-
-        if (!typing.typingEnabled) {
-            typingAudio.play();
-        }
     }
 
 
@@ -400,22 +398,28 @@ var journalAnimation = function(args) {
 
     }
 
+
     function resetAudioState() {
-        loopAudio.volume = 1;
 
-        if (loopAudio.readyState > 0) {
-            loopAudio.pause();
-            loopAudio.currentTime = 0;
-        }
-        if (typingAudio.readyState > 0 ) {
-            typingAudio.pause();
-            typingAudio.currentTime = 0;
-        }
-        if (endAudio.readyState > 0) {
-            endAudio.pause();
-            endAudio.currentTime = 0;
-        }
+        var resetAudio = function(audio, play) {
+            audio.volume = 1;
 
+            if (audio.readyState > 0) {
+                audio.currentTime = 0;
+
+                if (play) {
+                    audio.play();
+                }
+
+            }
+            else if (play) {
+                audio.oncanplaythrough = function() { audio.play(); };
+            }
+        };
+
+        resetAudio(loopAudio, true);
+        resetAudio(typingAudio, !typing.typingEnabled);
+        resetAudio(endAudio, false);
     }
 
 
@@ -425,10 +429,9 @@ var journalAnimation = function(args) {
                 return;
             }
 
-            resetAudioState();
             typing.typingEnabled = typingEnabled;
-            loopAudio.play();
 
+            resetAudioState();
             setState(JOURNAL_STATE.PLAYING);
 
             renderAll();
@@ -456,7 +459,9 @@ var journalAnimation = function(args) {
                 animation.creditsFade.destroy();
             }
 
-            resetAudioState();
+            loopAudio.pause();
+            typingAudio.pause();
+            endAudio.pause();
 
             canvas.stage.destroy();
         },
