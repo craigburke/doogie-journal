@@ -50,16 +50,6 @@ describe('Journal', function() {
         expect(currentState).toEqual(JOURNAL_STATE.PLAYING);
     });
 
-    it('can pause and unpause journal', function() {
-        animation.play(true);
-        expect(currentState).toEqual(JOURNAL_STATE.PLAYING);
-
-        animation.togglePause();
-        expect(currentState).toEqual(JOURNAL_STATE.PAUSED);
-
-        animation.togglePause();
-        expect(currentState).toEqual(JOURNAL_STATE.PLAYING);
-    });
 
     describe('transition to credits', function() {
 

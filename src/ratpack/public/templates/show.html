@@ -18,10 +18,6 @@
 
     <div cb-journal-link ng-show="journalId" ></div>
 
-    <div id="paused" ng-show="showPaused()" cb-message data-type="info">
-        Paused! Press ESC to continue animation.
-    </div>
-
     <div id="done" ng-if="showDone()" cb-message data-type="info">
         <p>Well, that was fun. Want to go again?</p>
         <a id="replay" class="btn btn-default" ng-click="replay()"><i class="glyphicon glyphicon-repeat"></i> Play again</a> or

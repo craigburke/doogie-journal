@@ -97,10 +97,6 @@ function($scope, $interval, $timeout, $route, JournalService, AnimationService, 
         }, doogieApp.TYPING_INTERVAL);
     }
 
-    $scope.showPaused = function() {
-        return ($scope.state === JOURNAL_STATE.PAUSED);
-    };
-
     $scope.showInstructions = function() {
         return ($scope.typingEnabled && $scope.state === JOURNAL_STATE.PLAYING);
     };
@@ -126,7 +122,6 @@ function($scope, $interval, $timeout, $route, JournalService, AnimationService, 
     };
 
     $scope.createNew = function() {
-        JournalService.setId(null);
         AnimationService.setIsEditMode(true);
     }
 
@@ -153,11 +148,6 @@ function($scope, $interval, $timeout, $route, JournalService, AnimationService, 
 
             $scope.journal.text = text;
             event.preventDefault();
-        }
-        else if (keyCode === doogieApp.KEY.ESCAPE && !$scope.typingEnabled) {
-            $timeout(function() {
-                doogieAnimation.togglePause()
-            });
         }
         else if (keyCode === doogieApp.KEY.RETURN && $scope.typingEnabled) {
             AnimationService.setIsEditMode(true);

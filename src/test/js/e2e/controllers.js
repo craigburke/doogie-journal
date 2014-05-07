@@ -116,21 +116,6 @@ describe('E2E:Controllers', function() {
         expect(showPage.instructionsBox.isDisplayed()).toBeFalsy();
     });
 
-    it("Can pause and unpause", function() {
-        showPage.get(journalId);
-        expect(showPage.pausedBox.isDisplayed()).toBeFalsy();
-
-        showPage.pressKey(protractor.Key.ESCAPE);
-        expect(showPage.pausedBox.isDisplayed()).toBeTruthy();
-        expect(showPage.typingAudio.getAttribute('paused')).toBeTruthy();
-        expect(showPage.loopAudio.getAttribute('paused')).toBeFalsy();
-
-        showPage.pressKey(protractor.Key.ESCAPE);
-        expect(showPage.pausedBox.isDisplayed()).toBeFalsy();
-        expect(showPage.typingAudio.getAttribute('paused')).toBeFalsy();
-        expect(showPage.loopAudio.getAttribute('paused')).toBeFalsy();
-    });
-
     it("Can create, edit, preview then save journal", function() {
         journalPage.get();
         expect(journalPage.getJournalText()).not.toBe("FOOBAR");

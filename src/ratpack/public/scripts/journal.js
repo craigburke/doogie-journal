@@ -1,9 +1,8 @@
 var JOURNAL_STATE = {
     INIT: 0,
     PLAYING: 1,
-    PAUSED: 2,
-    CREDITS: 3,
-    DONE: 4
+    CREDITS: 2,
+    DONE: 3
 };
 
 var journalAnimation = function(args) {
@@ -473,16 +472,6 @@ var journalAnimation = function(args) {
                 journal.text = text;
                 typing.parseJournalText();
                 renderText();
-            }
-        },
-        togglePause: function() {
-            if (state.current === JOURNAL_STATE.PAUSED) {
-                typingAudio.play();
-                setState(state.previous);
-            }
-            else {
-                typingAudio.pause();
-                setState(JOURNAL_STATE.PAUSED);
             }
         }
     }
