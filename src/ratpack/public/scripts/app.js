@@ -7,33 +7,32 @@ angular.module('doogie', [
     'doogie.controllers',
     'doogie.services'
 ])
-.config(['$routeProvider', function($routeProvider) {
+.config(function($routeProvider) {
     $routeProvider
         .when('/', {
             controller: 'JournalController',
             templateUrl: 'templates/journal.html',
             resolve: {
-                journal: ['JournalService', function(JournalService) { return JournalService.get(); }]
+                journal: function(JournalService) { return JournalService.get(); }
             }
         })
         .when('/show', {
             controller: 'AnimationController',
             templateUrl: 'templates/show.html',
             resolve: {
-                journal: ['JournalService', function(JournalService) { return JournalService.get(); }]
+                journal: function(JournalService) { return JournalService.get(); }
             }
         })
         .when('/show/:id', {
             controller: 'AnimationController',
             templateUrl: 'templates/show.html',
             resolve: {
-                journal: ['$route', 'JournalService', 'AnimationService',
-                    function($route, JournalService, AnimationService) {
+                journal: function($route, JournalService, AnimationService) {
                     AnimationService.setTypingEnabled(false);
                     var id = $route.current.params.id;
                     return JournalService.load(id);
-                }]
+                }
             }
         })
         .otherwise({redirectTo: '/'});
-}]);
+});

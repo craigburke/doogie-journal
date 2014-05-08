@@ -1,5 +1,5 @@
 angular.module('doogie.services', [])
-.factory('JournalService', ['$http', '$q', function($http, $q) {
+.factory('JournalService', function($http, $q) {
 
         var _journalId = null;
         var _journal = {
@@ -70,7 +70,8 @@ angular.module('doogie.services', [])
 
                 }
         };
-}])
+})
+
 .factory('AnimationService', function() {
 
     var options = {

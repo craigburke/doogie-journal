@@ -2,7 +2,7 @@
 
 angular.module('doogie.directives', ['ngAnimate'])
 
-.directive('cbMessage', ['$animate', function($animate) {
+.directive('cbMessage', function($animate) {
     return {
         restrict: "A",
         transclude: true,
@@ -10,7 +10,7 @@ angular.module('doogie.directives', ['ngAnimate'])
             type: '@'
         },
         templateUrl: 'templates/message-box.tpl.html',
-        controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+        controller: function($scope, $element, $attrs) {
             $element.addClass("alert");
             $element.addClass("alert-" + $attrs.type);
             $element.addClass("am-fade-and-scale");
@@ -20,10 +20,10 @@ angular.module('doogie.directives', ['ngAnimate'])
                     $element.remove();
                 });
             }
-        }]
+        }
     }
 
-}])
+})
 
 .directive('cbJournalLink', function() {
     return {
@@ -32,10 +32,10 @@ angular.module('doogie.directives', ['ngAnimate'])
     }
 })
 
-.directive('cbResize', ['$window', '$parse', function($window, $parse) {
+.directive('cbResize', function($window, $parse) {
     return {
         restrict: "A",
-        link: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+        link: function($scope, $element, $attrs) {
 
             var onResizeFunction = $parse($attrs.cbResize);
 
@@ -45,14 +45,15 @@ angular.module('doogie.directives', ['ngAnimate'])
                 });
             });
 
-        }]
+        }
     }
-}])
+})
 
-.directive('cbEditable', ['$parse', function($parse) {
+.directive('cbEditable', function($parse) {
     return {
         restrict: "A",
-        link: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+        link: function($scope, $element, $attrs) {
+
             $scope.$watch($attrs.cbEditable, function() {
                 var isEditable = $parse($attrs.cbEditable)($scope);
                 if (!isEditable) {
@@ -62,9 +63,9 @@ angular.module('doogie.directives', ['ngAnimate'])
                 $element.attr("contenteditable", isEditable);
             });
 
-        }]
+        }
     }
-}])
+})
 
 .directive('cbTweet', function() {
     return {

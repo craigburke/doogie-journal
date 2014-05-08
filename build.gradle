@@ -72,7 +72,7 @@ class ProcessAssetsTask extends DefaultTask {
             "${indexPath}/${it.attr('href').value}"
         }
 
-        processedJsFile = compress(combineAndHash(jsFiles))
+        processedJsFile = compress(ngMinify(combineAndHash(jsFiles)))
         processedCssFile = compress(combineAndHash(cssFiles))
 
         updateIndex()
@@ -100,6 +100,18 @@ class ProcessAssetsTask extends DefaultTask {
         destination.text = content
 
         return destination
+    }
+
+    private File ngMinify(File source) {
+        project.exec {
+            commandLine "npm", "install", "ngmin", "-g"
+        }
+
+        project.exec {
+            commandLine "ngmin", source.absolutePath, source.absolutePath
+        }
+
+        return source
     }
 
     private File compress(File source) {

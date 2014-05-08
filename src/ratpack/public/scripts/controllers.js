@@ -17,8 +17,7 @@ var doogieApp = {
 
 angular.module('doogie.controllers', [])
 
-.controller('JournalController', ['$scope', '$location', 'JournalService', 'AnimationService', 'journal',
-function($scope, $location, JournalService, AnimationService, journal) {
+.controller('JournalController', function($scope, $location, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     JournalService.set($scope.journal);
     $scope.showInfo = false;
@@ -53,10 +52,9 @@ function($scope, $location, JournalService, AnimationService, journal) {
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);
     }
-}])
+})
 
-.controller('AnimationController', ['$scope', '$interval', '$timeout', '$route', 'JournalService', 'AnimationService' , 'journal',
-function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
+.controller('AnimationController', function($scope, $interval, $timeout, $route, JournalService, AnimationService, journal) {
     $scope.journal = journal;
     $scope.typingEnabled = AnimationService.getTypingEnabled();
     $scope.contentEditable = $scope.typingEnabled;
@@ -73,9 +71,9 @@ function($scope, $interval, $timeout, $route, JournalService, AnimationService, 
     var doogieAnimation = journalAnimation({
         journal: journal,
         containerId: 'canvas',
-        loopAudioId: 'loopAudio',
-        endAudioId: 'endAudio',
-        typingAudioId: 'typingAudio',
+        loopAudio: '/audio/doogie-loop.mp3',
+        endAudio: '/audio/doogie-end.mp3',
+        typingAudio: '/audio/typing.mp3',
         onStateChange: onStateChange
     });
 
@@ -174,6 +172,6 @@ function($scope, $interval, $timeout, $route, JournalService, AnimationService, 
         doogieAnimation.stop();
     });
 
-}]);
+});
 
 

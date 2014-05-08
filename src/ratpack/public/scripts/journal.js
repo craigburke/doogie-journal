@@ -12,9 +12,14 @@ var journalAnimation = function(args) {
     var onStateChange = args.onStateChange;
     var containerId = args.containerId || "container";
 
-    var loopAudio = document.getElementById(args.loopAudioId || "loopAudio");
-    var endAudio =  document.getElementById(args.endAudioId || "endAudio");
-    var typingAudio = document.getElementById(args.typingAudioId || "typingAudio");
+    var loopAudio = document.createElement("audio");
+    var endAudio =  document.createElement("audio");
+    var typingAudio = document.createElement("audio");
+
+    loopAudio.src = args.loopAudio;
+    endAudio.src = args.endAudio;
+    typingAudio.src = args.typingAudio;
+
 
     var CONST = {
         DRAW_WIDTH : 600,
@@ -398,27 +403,24 @@ var journalAnimation = function(args) {
     }
 
 
-    function resetAudioState() {
+    function initAudio() {
+        loopAudio.volume = 1;
+        loopAudio.loop = true;
 
-        var resetAudio = function(audio, play) {
-            audio.volume = 1;
+        if (loopAudio.readyState == 4) {
+            loopAudio.currentTime = 0;
+        }
 
-            if (audio.readyState > 0) {
-                audio.currentTime = 0;
+        loopAudio.play();
 
-                if (play) {
-                    audio.play();
-                }
+        typingAudio.loop = true;
 
-            }
-            else if (play) {
-                audio.oncanplaythrough = function() { audio.play(); };
-            }
-        };
-
-        resetAudio(loopAudio, true);
-        resetAudio(typingAudio, !typing.typingEnabled);
-        resetAudio(endAudio, false);
+        if (typingAudio.readyState == 4) {
+            typingAudio.currentTime = 0;
+        }
+        if (!typing.typingEnabled) {
+            typingAudio.play();
+        }
     }
 
 
@@ -430,7 +432,7 @@ var journalAnimation = function(args) {
 
             typing.typingEnabled = typingEnabled;
 
-            resetAudioState();
+            initAudio();
             setState(JOURNAL_STATE.PLAYING);
 
             renderAll();
