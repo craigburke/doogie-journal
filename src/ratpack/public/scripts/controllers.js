@@ -28,7 +28,7 @@ angular.module('doogie.controllers', [])
 
     $scope.toggleShowInfo = function() {
         $scope.showInfo = !$scope.showInfo;
-    }
+    };
 
     $scope.showLink = function() {
         return $scope.journalId;
@@ -47,7 +47,7 @@ angular.module('doogie.controllers', [])
         JournalService.loadFromTweet($scope.tweet.id).then(function() {
             $location.url('/show');
         });
-    }
+    };
 
     $scope.preview = function() {
         AnimationService.setTypingEnabled(false);
@@ -109,7 +109,7 @@ angular.module('doogie.controllers', [])
 
     $scope.showDone = function() {
         return ($scope.state === JOURNAL_STATE.DONE && !AnimationService.getIsEditMode());
-    }
+    };
 
     $scope.edit = function() {
         AnimationService.setIsEditMode(true);
@@ -121,7 +121,7 @@ angular.module('doogie.controllers', [])
 
     $scope.createNew = function() {
         AnimationService.setIsEditMode(true);
-    }
+    };
 
     $scope.save = function() {
         AnimationService.setIsEditMode(false);

@@ -72,8 +72,8 @@ class ProcessAssetsTask extends DefaultTask {
             "${indexPath}/${it.attr('href').value}"
         }
 
-        processedJsFile = compress(ngMinify(combineAndHash(jsFiles)))
-        processedCssFile = compress(combineAndHash(cssFiles))
+        processedJsFile = processJs(jsFiles)
+        processedCssFile = processCss(cssFiles)
 
         updateIndex()
     }
@@ -102,15 +102,23 @@ class ProcessAssetsTask extends DefaultTask {
         return destination
     }
 
-    private File ngMinify(File source) {
+    private File processJs(def files) {
+        File source = combineAndHash(files)
+
         project.exec {
             commandLine "ngmin", source.absolutePath, source.absolutePath
+        }
+
+        project.exec {
+            commandLine "uglifyjs", source.absolutePath, '-o', source.absolutePath
         }
 
         return source
     }
 
-    private File compress(File source) {
+    private File processCss(def files) {
+        File source = combineAndHash(files)
+
         String fileExtension = source.name.tokenize('.').last()
         String compressedFileName = source.name.replace(fileExtension, "min.${fileExtension}")
         String compressedFilePath = "${destinationAssetDir}/${compressedFileName}"

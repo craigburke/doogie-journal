@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('doogie.directives', ['ngAnimate'])
 
+angular.module('doogie.directives', ['ngAnimate'])
 .directive('cbMessage', function($animate) {
     return {
         restrict: "A",
@@ -32,6 +32,7 @@ angular.module('doogie.directives', ['ngAnimate'])
     }
 })
 
+
 .directive('cbResize', function($window, $parse) {
     return {
         restrict: "A",
@@ -56,6 +57,7 @@ angular.module('doogie.directives', ['ngAnimate'])
 
             $scope.$watch($attrs.cbEditable, function() {
                 var isEditable = $parse($attrs.cbEditable)($scope);
+
                 if (!isEditable) {
                     document.activeElement.blur();
                 }

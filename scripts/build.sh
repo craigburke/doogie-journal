@@ -45,7 +45,7 @@ function run_protractor_tests {
 
 set_twitter_config
 start_selenium
-npm_install "karma karma-cli protractor ngmin"
+npm_install "karma karma-cli protractor ngmin uglify-js"
 run_karma_tests
 run_spock_tests
 build_app

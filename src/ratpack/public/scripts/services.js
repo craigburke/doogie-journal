@@ -77,7 +77,7 @@ angular.module('doogie.services', [])
     var options = {
         typingEnabled: true,
         isEditMode: false
-    }
+    };
 
     return {
         getTypingEnabled: function() {
