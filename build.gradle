@@ -104,10 +104,6 @@ class ProcessAssetsTask extends DefaultTask {
 
     private File ngMinify(File source) {
         project.exec {
-            commandLine "npm", "install", "ngmin", "-g"
-        }
-
-        project.exec {
             commandLine "ngmin", source.absolutePath, source.absolutePath
         }
 
