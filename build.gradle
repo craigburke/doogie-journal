@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.ratpack:ratpack-gradle:0.9.4"
+        classpath "io.ratpack:ratpack-gradle:0.9.5"
         classpath "org.jsoup:jsoup:1.7.3"
     }
 }
@@ -102,25 +102,31 @@ class ProcessAssetsTask extends DefaultTask {
         return destination
     }
 
+    private static getMinifiedFileName(File source) {
+        String fileExtension = source.name.tokenize('.').last()
+        return source.name.replace(fileExtension, "min.${fileExtension}")
+    }
+
     private File processJs(def files) {
         File source = combineAndHash(files)
+        String compressedFileName = getMinifiedFileName(source)
+        String compressedFilePath = "${destinationAssetDir}/${compressedFileName}"
 
         project.exec {
             commandLine "ngmin", source.absolutePath, source.absolutePath
         }
 
         project.exec {
-            commandLine "uglifyjs", source.absolutePath, '-o', source.absolutePath
+            commandLine "uglifyjs", source.absolutePath, '-o', compressedFilePath
         }
 
-        return source
+        return new File(compressedFilePath)
     }
 
     private File processCss(def files) {
         File source = combineAndHash(files)
 
-        String fileExtension = source.name.tokenize('.').last()
-        String compressedFileName = source.name.replace(fileExtension, "min.${fileExtension}")
+        String compressedFileName = getMinifiedFileName(source)
         String compressedFilePath = "${destinationAssetDir}/${compressedFileName}"
 
         project.javaexec {

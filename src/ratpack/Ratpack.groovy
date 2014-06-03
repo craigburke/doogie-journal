@@ -9,9 +9,9 @@ import static ratpack.jackson.Jackson.json
 import com.craigburke.doogie.DoogieModule
 
 ratpack {
-    modules {
-        register new JacksonModule()
-        register new DoogieModule()
+    bindings {
+        add new JacksonModule()
+        add new DoogieModule()
     }
 
     handlers { JournalService service ->
