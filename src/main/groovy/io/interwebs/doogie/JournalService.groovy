@@ -1,7 +1,8 @@
-package com.craigburke.doogie
+package io.interwebs.doogie
 
-import com.craigburke.doogie.dbo.Journal
-import com.craigburke.doogie.dbo.Credits
+import io.interwebs.doogie.dbo.Journal
+import io.interwebs.doogie.dbo.Credits
+
 import com.google.inject.Inject
 import com.mongodb.WriteConcern
 import org.mongodb.morphia.Morphia
@@ -20,13 +21,13 @@ class JournalService {
 
     JournalService() {
         Morphia morphia = new Morphia()
-        morphia.mapPackage("com.craigburke.doogie.dbo")
+        morphia.mapPackage("io.interwebs.doogie.dbo")
 
         Mongo mongo = new Mongo()
         datastore = morphia.createDatastore(mongo, "doogie")
     }
 
-    Journal getJournal(def id) {
+    Journal getJournal(id) {
         return datastore.get(Journal, new ObjectId(id))
     }
 
@@ -50,10 +51,5 @@ class JournalService {
         datastore.save(journal, WriteConcern.SAFE)
         return journal.id.toString()
     }
-
-
-
-
-
 
 }

@@ -1,12 +1,12 @@
-import com.craigburke.doogie.JournalService
-import com.craigburke.doogie.dbo.Journal
+import io.interwebs.doogie.JournalService
+import io.interwebs.doogie.dbo.Journal
 import ratpack.jackson.JacksonModule
 
 import static ratpack.groovy.Groovy.ratpack
 import static ratpack.jackson.Jackson.fromJson
 import static ratpack.jackson.Jackson.json
 
-import com.craigburke.doogie.DoogieModule
+import io.interwebs.doogie.DoogieModule
 
 ratpack {
     bindings {
