@@ -1,5 +1,8 @@
 package io.interwebs.doogie
 
+import org.jsoup.Jsoup
+import java.security.MessageDigest
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 
