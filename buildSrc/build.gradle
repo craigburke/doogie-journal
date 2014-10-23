@@ -1,8 +1,11 @@
+plugins {
+  id "com.moowork.node" version "0.6"
+}
+
 repositories {
     jcenter()
 }
 
 dependencies {
 	compile "org.jsoup:jsoup:1.7.3"
-    compile "com.yahoo.platform.yui:yuicompressor:2.4.7"
 }

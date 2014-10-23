@@ -22,6 +22,7 @@ dependencies {
     compile "org.mongodb:mongo-java-driver:2.11.4"
     compile "org.mongodb.morphia:morphia:0.107"
     compile "org.twitter4j:twitter4j-core:4.0.1"
+    compile "com.yahoo.platform.yui:yuicompressor:2.4.7"
     testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
 }
 
