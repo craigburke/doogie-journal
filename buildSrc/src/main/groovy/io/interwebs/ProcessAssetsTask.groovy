@@ -89,7 +89,7 @@ class ProcessAssetsTask extends DefaultTask {
         String compressedFilePath = "${destinationAssetDir}/${compressedFileName}"
 
         project.javaexec {
-            classpath = project.configurations.compress
+            classpath = project.configurations.compile
             main = 'com.yahoo.platform.yui.compressor.YUICompressor'
             args = ["-o", "${compressedFilePath}", source.absolutePath]
         }
