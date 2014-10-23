@@ -1,0 +1,10 @@
+repositories {
+    jcenter()
+}
+
+configurations { compress }
+
+dependencies {
+	compile "org.jsoup:jsoup:1.7.3"
+    compress "com.yahoo.platform.yui:yuicompressor:2.4.7"
+}

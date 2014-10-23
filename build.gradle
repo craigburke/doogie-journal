@@ -6,11 +6,8 @@ buildscript {
     }
     dependencies {
         classpath "io.ratpack:ratpack-gradle:0.9.9"
-        classpath "org.jsoup:jsoup:1.7.3"
     }
 }
-
-configurations { compress }
 
 repositories {
     jcenter()
@@ -26,7 +23,6 @@ dependencies {
     compile "org.mongodb.morphia:morphia:0.107"
     compile "org.twitter4j:twitter4j-core:4.0.1"
     testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
-    compress "com.yahoo.platform.yui:yuicompressor:2.4.7"
 }
 
 task wrapper(type: Wrapper) {
