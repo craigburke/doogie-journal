@@ -10,16 +10,10 @@ function set_twitter_config {
 	EOF
 }
 
-function start_selenium {
-	sudo start xvfb
-	wget http://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar --quiet
-	java -jar selenium-server-standalone-2.35.0.jar > /dev/null 2>&1 &
-}
-
 function npm_install {
 	for PLUGIN in $1
 	do
-		sudo npm install -g $PLUGIN --silent
+		npm install -g $PLUGIN --silent
 	done
 
 	sudo npm install --silent
