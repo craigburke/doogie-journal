@@ -5,7 +5,7 @@ Doogie Howser Journal Generator
 
 This is a Ratpack / AngularJS application that allows you to make your own Doogie Howser style journals.
 
-[See the live site](http://doogie.interwebs.io)
+[See the live site](http://doogie.craigburke.com)
 
 
 **Requirements**
