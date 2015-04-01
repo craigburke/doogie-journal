@@ -16,7 +16,7 @@ function npm_install {
 		npm install -g $PLUGIN --silent
 	done
 
-	sudo npm install --silent
+	npm install --silent
 }
 
 function run_karma_tests {
