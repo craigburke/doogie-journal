@@ -1,8 +1,8 @@
 package io.interwebs.doogie
 
-import ratpack.groovy.test.LocalScriptApplicationUnderTest
+import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
 import ratpack.test.http.TestHttpClient
-import ratpack.test.http.TestHttpClients
+import ratpack.test.ServerBackedApplicationUnderTest
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
@@ -14,8 +14,8 @@ import io.interwebs.doogie.dbo.*
 
 class DoogieSpec extends Specification {
 
-    LocalScriptApplicationUnderTest aut = new LocalScriptApplicationUnderTest()
-    @Delegate TestHttpClient client = TestHttpClients.testHttpClient(aut)
+    ServerBackedApplicationUnderTest aut = new GroovyRatpackMainApplicationUnderTest()
+    @Delegate TestHttpClient client = TestHttpClient.testHttpClient(aut)
 
     @Shared String journalId
 	@Shared def json = new JsonSlurper()

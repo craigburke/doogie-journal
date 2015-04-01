@@ -5,25 +5,28 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.ratpack:ratpack-gradle:0.9.9"
+        classpath "io.ratpack:ratpack-gradle:0.9.14"
     }
 }
 
 repositories {
-    jcenter()
+	maven {
+		url "http://clinker.netty.io/nexus/content/repositories/snapshots"
+	}
+	jcenter()
 }
 
 apply plugin: "io.ratpack.ratpack-groovy"
 apply plugin: "idea"
 
 dependencies {
-  	runtime "org.slf4j:slf4j-simple:1.7.5"
-    compile ratpack.dependency("jackson")
-    compile "org.mongodb:mongo-java-driver:2.11.4"
-    compile "org.mongodb.morphia:morphia:0.107"
-    compile "org.twitter4j:twitter4j-core:4.0.1"
-    compile "com.yahoo.platform.yui:yuicompressor:2.4.7"
-    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+	runtime "org.slf4j:slf4j-simple:1.7.5"
+	compile ratpack.dependency("jackson")
+	compile "org.mongodb:mongo-java-driver:2.11.4"
+	compile "org.mongodb.morphia:morphia:0.107"
+	compile "org.twitter4j:twitter4j-core:4.0.1"
+	compile "com.yahoo.platform.yui:yuicompressor:2.4.7"
+	testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
 }
 
 task wrapper(type: Wrapper) {
