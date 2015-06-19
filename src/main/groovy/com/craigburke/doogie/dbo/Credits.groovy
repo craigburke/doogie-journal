@@ -1,4 +1,4 @@
-package io.interwebs.doogie.dbo
+package com.craigburke.doogie.dbo
 
 class Credits {
     String person

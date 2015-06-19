@@ -1,4 +1,4 @@
-package io.interwebs.doogie.dbo
+package com.craigburke.doogie.dbo
 
 import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id

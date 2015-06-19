@@ -1,46 +1,48 @@
-import io.interwebs.doogie.ProcessAssetsTask
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath "io.ratpack:ratpack-gradle:0.9.14"
-    }
+        classpath 'io.ratpack:ratpack-gradle:0.9.14'
+		classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.3.2'
+    	classpath 'com.craigburke.angular:angular-template-asset-pipeline:2.1.0'
+    	classpath 'com.craigburke.angular:angular-annotate-asset-pipeline:2.1.0'
+	}
 }
 
 repositories {
-	maven {
-		url "http://clinker.netty.io/nexus/content/repositories/snapshots"
-	}
-	jcenter()
+    jcenter()
 }
 
-apply plugin: "io.ratpack.ratpack-groovy"
-apply plugin: "idea"
+apply plugin: 'io.ratpack.ratpack-groovy'
+apply plugin: 'asset-pipeline'
+apply plugin: 'idea'
+
+assets {
+    minifyJs = true
+    minifyCss = true
+    enableDigests=true
+    enableSourceMaps = true
+}
 
 dependencies {
-	runtime "org.slf4j:slf4j-simple:1.7.5"
-	compile ratpack.dependency("jackson")
-	compile "org.mongodb:mongo-java-driver:2.11.4"
-	compile "org.mongodb.morphia:morphia:0.107"
-	compile "org.twitter4j:twitter4j-core:4.0.1"
-	compile "com.yahoo.platform.yui:yuicompressor:2.4.7"
-	testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+	runtime 'org.slf4j:slf4j-simple:1.7.5'
+	compile ratpack.dependency('jackson')
+	compile 'org.mongodb:mongo-java-driver:2.11.4'
+	compile 'org.mongodb.morphia:morphia:0.107'
+	compile 'org.twitter4j:twitter4j-core:4.0.1'
+
+    compile 'com.bertramlabs.plugins:ratpack-asset-pipeline:2.3.3'
+    runtime 'com.craigburke.angular:angular-template-asset-pipeline:2.1.0'
+    runtime 'com.craigburke.angular:angular-annotate-asset-pipeline:2.1.0'
+
+	testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
-}
-
-task processAssets(type: ProcessAssetsTask) {
-    sourceIndexFile = file("src/ratpack/public/index.html")
-    watchDirectory = file("src/ratpack/public")
-
-    destinationAssetDir = file("build/install/doogie/app/public")
-    destinationIndexFile = file("build/install/doogie/app/public/index.html")
+    gradleVersion = '2.4'
 }
 
 task buildApp {
-    dependsOn clean, installApp, processAssets
+    dependsOn clean, assetCompile, installApp
 }

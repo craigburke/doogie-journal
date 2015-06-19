@@ -1,4 +1,4 @@
-package io.interwebs.doogie
+package com.craigburke.doogie
 
 import com.google.inject.AbstractModule
 import com.google.inject.Scopes

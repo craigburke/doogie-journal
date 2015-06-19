@@ -1,7 +1,7 @@
-package io.interwebs.doogie
+package com.craigburke.doogie
 
-import io.interwebs.doogie.dbo.Journal
-import io.interwebs.doogie.dbo.Credits
+import com.craigburke.doogie.dbo.Journal
+import com.craigburke.doogie.dbo.Credits
 
 import com.google.inject.Inject
 import com.mongodb.WriteConcern

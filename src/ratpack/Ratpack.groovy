@@ -1,17 +1,20 @@
-import io.interwebs.doogie.JournalService
-import io.interwebs.doogie.dbo.Journal
+import asset.pipeline.ratpack.AssetPipelineHandler
+import asset.pipeline.ratpack.AssetPipelineModule
+import com.craigburke.doogie.JournalService
+import com.craigburke.doogie.dbo.Journal
 import ratpack.jackson.JacksonModule
 
 import static ratpack.groovy.Groovy.ratpack
 import static ratpack.jackson.Jackson.fromJson
 import static ratpack.jackson.Jackson.json
 
-import io.interwebs.doogie.DoogieModule
+import com.craigburke.doogie.DoogieModule
 
 ratpack {
     bindings {
-        add new JacksonModule()
-        add new DoogieModule()
+        module new JacksonModule()
+        module new DoogieModule()
+        module new AssetPipelineModule()
     }
 
     handlers { JournalService service ->
@@ -45,7 +48,7 @@ ratpack {
 
         }
 
-        assets "public", "index.html"
+        handler new AssetPipelineHandler("/")
     }
 }
     

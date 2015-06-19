@@ -1,13 +1,13 @@
-package io.interwebs.doogie
+package com.craigburke.doogie
 
+import com.craigburke.doogie.dbo.Credits
+import com.craigburke.doogie.dbo.Journal
 import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
 import ratpack.test.http.TestHttpClient
 import ratpack.test.ServerBackedApplicationUnderTest
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-import ratpack.http.client.RequestSpec
-
 import spock.lang.Specification
 import spock.lang.Shared
 import io.interwebs.doogie.dbo.*
@@ -32,7 +32,7 @@ class DoogieSpec extends Specification {
 
     def "Show Journal Page"() {
         when:
-        get("#/show")
+        get("index.html/#/show")
 
         then:
         response.statusCode == 200
