@@ -3,6 +3,7 @@
 node_modules
 
 # IDEA
+.idea
 *.iml
 *.ipr
 *.iws
