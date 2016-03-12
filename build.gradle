@@ -3,8 +3,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'io.ratpack:ratpack-gradle:0.9.14'
-		classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.3.2'
+        classpath 'io.ratpack:ratpack-gradle:1.1.0'
+		classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.6.4'
     	classpath 'com.craigburke.angular:angular-template-asset-pipeline:2.1.0'
     	classpath 'com.craigburke.angular:angular-annotate-asset-pipeline:2.1.0'
 	}
@@ -27,12 +27,12 @@ assets {
 
 dependencies {
 	runtime 'org.slf4j:slf4j-simple:1.7.5'
-	compile ratpack.dependency('jackson')
+	// compile ratpack.dependency('jackson')
 	compile 'org.mongodb:mongo-java-driver:2.11.4'
 	compile 'org.mongodb.morphia:morphia:0.107'
 	compile 'org.twitter4j:twitter4j-core:4.0.1'
 
-    compile 'com.bertramlabs.plugins:ratpack-asset-pipeline:2.3.3'
+    compile 'com.bertramlabs.plugins:ratpack-asset-pipeline:2.6.4'
     runtime 'com.craigburke.angular:angular-template-asset-pipeline:2.1.0'
     runtime 'com.craigburke.angular:angular-annotate-asset-pipeline:2.1.0'
 
@@ -40,7 +40,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
+    gradleVersion = '2.9'
 }
 
 task buildApp {

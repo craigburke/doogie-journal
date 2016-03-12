@@ -2,7 +2,9 @@ import asset.pipeline.ratpack.AssetPipelineHandler
 import asset.pipeline.ratpack.AssetPipelineModule
 import com.craigburke.doogie.JournalService
 import com.craigburke.doogie.dbo.Journal
-import ratpack.jackson.JacksonModule
+import ratpack.path.internal.RootPathBinding
+
+// import ratpack.jackson.JacksonModule
 
 import static ratpack.groovy.Groovy.ratpack
 import static ratpack.jackson.Jackson.fromJson
@@ -12,9 +14,12 @@ import com.craigburke.doogie.DoogieModule
 
 ratpack {
     bindings {
-        module new JacksonModule()
+        // module new JacksonModule()
         module new DoogieModule()
-        module new AssetPipelineModule()
+        module(new AssetPipelineModule()) {
+            it.url("/")
+            it.sourcePath("../../../src/assets")
+        }
     }
 
     handlers { JournalService service ->
@@ -47,8 +52,9 @@ ratpack {
             }
 
         }
-
-        handler new AssetPipelineHandler("/")
+        all(new AssetPipelineHandler())
+        all { ctx ->
+            ctx.insert(single(new RootPathBinding("index.html")), new AssetPipelineHandler())
+        }
     }
 }
-    
